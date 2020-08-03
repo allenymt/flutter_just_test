@@ -1,30 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_just_test/fps/FpsHelper.dart';
-import 'package:flutter_just_test/fps/VDFps.dart';
-import 'package:flutter_just_test/fps/aliFps.dart';
+import 'package:performance_fps/performance_fps.dart';
 
 /// do what
 /// @author yulun
 /// @since 2020-07-17 14:51
+/// https://pub.dev/packages/performance_fps
 class TestFpsWidget extends StatefulWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("fps"),
-      ),
-      body: Center(
-        child: GestureDetector(
-          child: Text("click open"),
-          onTap: () {
-            aliFps.instance.init();
-          },
-        ),
-      ),
-    );
-  }
-
   @override
   State createState() {
     return TestFpsState();
@@ -32,7 +14,7 @@ class TestFpsWidget extends StatefulWidget {
 }
 
 class TestFpsState extends State<TestFpsWidget> {
-
+  var fps;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +32,10 @@ class TestFpsState extends State<TestFpsWidget> {
                 color: Colors.red,
               ),
               onTap: () {
-                FpsHelper.instance.init();
+                Fps.instance.registerCallBack((fps, dropCount) {
+                  // current fps
+                  this.fps = fps;
+                });
               },
             ),
             SizedBox(
@@ -64,7 +49,7 @@ class TestFpsState extends State<TestFpsWidget> {
                 color: Colors.green,
               ),
               onTap: () {
-                FpsHelper.instance.cancel();
+                Fps.instance.cancel();
               },
             ),
             SizedBox(
@@ -74,7 +59,7 @@ class TestFpsState extends State<TestFpsWidget> {
               child: Container(
                 constraints: BoxConstraints.tightFor(width: 300, height: 50),
                 alignment: Alignment.center,
-                child: Text("aliFps is ${FpsHelper.instance.aliFpsAvg}, wdFps is ${FpsHelper.instance.wdFpsAvg}"),
+                child: Text("fps is $fps"),
                 color: Colors.deepOrange,
               ),
               onTap: () {

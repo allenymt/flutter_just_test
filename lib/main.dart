@@ -140,7 +140,7 @@ class MyApp extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text('测试匿名类'),
+                title: Text('测试匿名类的gc回收'),
                 onTap: () {
                   Navigator.of(context).pushNamed("test_memory");
                 },

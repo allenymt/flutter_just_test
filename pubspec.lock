@@ -118,6 +118,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.6.4"
+  performance_fps:
+    dependency: "direct main"
+    description:
+      name: performance_fps
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.5"
   petitparser:
     dependency: transitive
     description:
@@ -201,5 +208,5 @@ packages:
     source: hosted
     version: "3.6.1"
 sdks:
-  dart: ">=2.6.0 <3.0.0"
-  flutter: ">=1.6.0"
+  dart: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
