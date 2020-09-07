@@ -10,13 +10,13 @@ import 'animation/FadeAppTest.dart';
 import 'basic/DynamicChild.dart';
 import 'custom/PaintDemo.dart';
 import 'custom/offscreen_layer_test.dart';
-import 'date_select/select_dialog.dart';
 import 'debug/debug_log_test.dart';
 import 'eventloop/Isolate_demo.dart';
 import 'eventloop/event_test.dart';
 import 'fps/TestFps.dart';
 import 'key/test_key.dart';
 import 'operator/test_operator.dart';
+import 'ui_box/ui_box_demo.dart';
 import 'widget/InheritedWidgetTest.dart';
 
 void main() {
@@ -62,6 +62,15 @@ class MyApp extends StatelessWidget {
           ),
           body: ListView(
             children: <Widget>[
+              ListTile(
+                title: Text('Ui Box'),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext c) {
+                    return UiBoxDemo();
+                  }));
+                },
+              ),
               ListTile(
                 title: Text('fade动画测试'),
                 onTap: () {
@@ -164,15 +173,6 @@ class MyApp extends StatelessWidget {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext c) {
                     return TestBindingWidget();
-                  }));
-                },
-              ),
-              ListTile(
-                title: Text('级联选择框 选日期，选地址'),
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (BuildContext c) {
-                    return CascadeTestWidget();
                   }));
                 },
               ),
