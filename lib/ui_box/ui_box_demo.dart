@@ -48,7 +48,7 @@ class UiBoxDemo extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text('展开收起'),
+                title: Text('文本展开收起控件'),
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext c) {
