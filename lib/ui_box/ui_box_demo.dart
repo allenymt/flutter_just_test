@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'animation_pageview_demo.dart';
+import 'fold_up_demo.dart';
 import 'prelaod_pageview_demo.dart';
 import 'select_dialog.dart';
 
@@ -43,6 +44,15 @@ class UiBoxDemo extends StatelessWidget {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext c) {
                     return PreLoadPageViewDemo();
+                  }));
+                },
+              ),
+              ListTile(
+                title: Text('展开收起'),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext c) {
+                    return FoldUpDemo();
                   }));
                 },
               ),
