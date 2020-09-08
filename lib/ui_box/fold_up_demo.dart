@@ -9,7 +9,6 @@ import 'dart:ui' as ui show  PlaceholderAlignment;
 class FoldUpDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -18,7 +17,7 @@ class FoldUpDemo extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text("预加载pageView"),
+        title: Text("文本展开收起控件"),
       ),
       body: Container(
           margin: EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -47,6 +46,7 @@ class FoldUpDemo extends StatelessWidget {
                       recognizer: gestureRecognizer,
                       style: TextStyle(color: Colors.blueAccent, fontSize: 12));
                 },
+                expanded: true,
                 textStyle: TextStyle(color: Colors.black, fontSize: 18),
                 inlineSpanList: []
                   ..add(WidgetSpan(
