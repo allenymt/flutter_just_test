@@ -33,7 +33,7 @@ class FoldUpDemo extends StatelessWidget {
                 },
                 textStyle: TextStyle(color: Colors.black, fontSize: 18),
                 text:
-                    "我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案",
+                    "我我我我我我我我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案我是测试的文案",
               ),
               SizedBox(
                 height: 30,
@@ -46,7 +46,6 @@ class FoldUpDemo extends StatelessWidget {
                       recognizer: gestureRecognizer,
                       style: TextStyle(color: Colors.blueAccent, fontSize: 12));
                 },
-                expanded: true,
                 textStyle: TextStyle(color: Colors.black, fontSize: 18),
                 inlineSpanList: []
                   ..add(WidgetSpan(
@@ -56,11 +55,11 @@ class FoldUpDemo extends StatelessWidget {
                   ..add(TextSpan(
                       text: "我是红色的测试文案", style: TextStyle(color: Colors.red)))
                   ..add(TextSpan(
-                      text: "我是黄色的测试文案", style: TextStyle(color: Colors.yellow)))
+                      text: "我是黄色的测试文案123123", style: TextStyle(color: Colors.yellow)))
                   ..add(TextSpan(
                       text: "我是黑色的测试文案", style: TextStyle(color: Colors.black)))
                   ..add(TextSpan(
-                      text: "我是大字号", style: TextStyle(color: Colors.orange,fontSize: 22)))
+                      text: "我我是大字号的测试文案", style: TextStyle(color: Colors.orange,fontSize: 22)))
                   ,
               ),
             ],

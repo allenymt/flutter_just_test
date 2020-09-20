@@ -14,7 +14,7 @@ class AnimationPageViewWidget extends StatefulWidget {
 }
 
 class _AnimationPageViewWidgetState extends State<AnimationPageViewWidget> {
-  List<double> _imgScaleMap = [0.8, 0.6, 1.0, 0.7, 1.2,0.7];
+  List<double> _imgScaleMap = [0.8, 0.7, 1.0, 0.9, 1.2, 1.5];
   int _currentIndex = 0;
 
   @override
@@ -36,7 +36,11 @@ class _AnimationPageViewWidgetState extends State<AnimationPageViewWidget> {
             onTap: () {
               print("tap img index is $index");
             },
-            child: Image.network(imgUrl ?? "",width: w,height: h,fit:BoxFit.fitWidth),
+            child: Image.network(imgUrl ?? "",
+                width: w,
+                height: h,
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter),
           );
         },
         onPageChanged: (index) {
@@ -91,8 +95,21 @@ class _AnimationPageViewWidgetState extends State<AnimationPageViewWidget> {
         ),
         title: Text("高度自适应选择框"),
       ),
-      body: Center(
-        child: child,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          child,
+          Expanded(
+            child: Container(
+              color: Colors.yellow,
+              alignment: Alignment.center,
+              child: Text(
+                "我是占位的",
+                style: TextStyle(fontSize: 30),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
