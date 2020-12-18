@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_just_test/memory/TestMemory.dart';
 import 'package:flutter_just_test/plugin/platform_view.dart';
 import 'package:flutter_just_test/reqexp/RegExpText.dart';
-import 'package:flutter_just_test/touchevent/TouchEventWidget.dart';
+import 'package:flutter_just_test/touchevent/touch_main.dart';
 import 'package:flutter_just_test/widgets_bind/TestBindingBase.dart';
 import 'package:flutter_just_test/zone/zone_test.dart';
 
@@ -16,8 +16,10 @@ import 'eventloop/event_test.dart';
 import 'fps/TestFps.dart';
 import 'key/test_key.dart';
 import 'operator/test_operator.dart';
+import 'scroll/pageview_tabview_demo.dart';
 import 'ui_box/ui_box_demo.dart';
 import 'widget/InheritedWidgetTest.dart';
+import 'widget/StateTest.dart';
 
 void main() {
   // 就是开发工具的debugPaint，很好奇IDE的工具怎么改变 Dart vm的值？
@@ -33,7 +35,7 @@ void main() {
       "inherited_test": (BuildContext context) =>
           InheritedWidgetTestContainer(),
       "dynamic_child": (BuildContext context) => DynamicChildApp(),
-      "touch_event": (BuildContext context) => TestTouchEventWidget(),
+      "touch_event": (BuildContext context) => TouchMain(),
       "test_operator": (BuildContext context) => TestOperatorWidget(),
       "test_key": (BuildContext context) => TestKeyWidget(),
       "event_test": (BuildContext context) => EventLoopTestWidget(),
@@ -45,6 +47,8 @@ void main() {
       "test_memory": (BuildContext context) => TestMemory(),
       "test_fps": (BuildContext context) => TestFpsWidget(),
       "zone_test": (BuildContext context) => ZoneTestWidget(),
+      "pageView_tabView_demo": (BuildContext context) =>
+          PageViewTabViewConflict()
     },
   ));
 //      new TestOperatorWidget());
@@ -173,6 +177,21 @@ class MyApp extends StatelessWidget {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext c) {
                     return TestBindingWidget();
+                  }));
+                },
+              ),
+              ListTile(
+                title: Text('pageview 嵌套 tabview 滑动冲突测试'),
+                onTap: () {
+                  Navigator.of(context).pushNamed("pageView_tabView_demo");
+                },
+              ),
+              ListTile(
+                title: Text('state 刷新测试'),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext c) {
+                    return StateTestParent();
                   }));
                 },
               ),

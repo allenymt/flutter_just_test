@@ -15,11 +15,13 @@ class _TestTouchEventState extends State<TestTouchEventWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("事件监听测试"),),
       body: Container(
         width: 100,
         height: 100,
         constraints: BoxConstraints(maxHeight: 100, maxWidth: 100,minHeight: 0,minWidth: 0),
         color: Colors.red,
+        alignment: Alignment.center,
         child: Listener(
           //为什么限定了大小没用,涉及到widget的layout why why why
           //这里解释下，当Container设置了constraints后，由于Container是组件容器，实际上参与layout的是ConstrainedBox

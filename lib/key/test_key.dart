@@ -68,6 +68,7 @@ class _TestState extends State<TestKeyWidget> {
   switchWidget() {
 //    switchWidgetStateless();
 //    switchWidgetStateful();
+  if (mounted)
     setState(() {
       widgetsStateful.insert(0, widgetsStateful.removeAt(1));
     });
