@@ -17,6 +17,7 @@ import 'fps/TestFps.dart';
 import 'key/test_key.dart';
 import 'operator/test_operator.dart';
 import 'scroll/pageview_tabview_demo.dart';
+import 'touchevent/hitbehavior_demo.dart';
 import 'ui_box/ui_box_demo.dart';
 import 'widget/InheritedWidgetTest.dart';
 import 'widget/StateTest.dart';
@@ -192,6 +193,15 @@ class MyApp extends StatelessWidget {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext c) {
                     return StateTestParent();
+                  }));
+                },
+              ),
+              ListTile(
+                title: Text('hit behavior demo'),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext c) {
+                    return HitBehaviorDemo();
                   }));
                 },
               ),
