@@ -14,13 +14,14 @@ class HitBehaviorDemo extends StatelessWidget {
       appBar: AppBar(
         title: Text("hit behavior demo"),
       ),
-      // 默认情况下，Row的空白处不响应点击事件，有两个方法
-      // 1. 设置behavior为HitTestBehavior.opaque或者translucent
-      // 2. Container设置背景色,任意背景色都可以
-      body: buildChild2(),
+
+      body: buildChild1(),
     );
   }
 
+  // 默认情况下，Row的空白处不响应点击事件，有两个方法
+  // 1. 设置behavior为HitTestBehavior.opaque或者translucent
+  // 2. Container设置背景色,任意背景色都可以
   Widget buildChild1() {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -50,6 +51,7 @@ class HitBehaviorDemo extends StatelessWidget {
     );
   }
 
+  //translucent和opaque的区别
   Widget buildChild2() {
     return Stack(
       children: <Widget>[
