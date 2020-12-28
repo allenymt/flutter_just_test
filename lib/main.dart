@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_just_test/memory/TestMemory.dart';
 import 'package:flutter_just_test/plugin/platform_view.dart';
@@ -21,10 +23,18 @@ import 'touchevent/hitbehavior_demo.dart';
 import 'ui_box/ui_box_demo.dart';
 import 'widget/InheritedWidgetTest.dart';
 import 'widget/StateTest.dart';
+import 'zone/exception_test.dart';
 
 void main() {
   // 就是开发工具的debugPaint，很好奇IDE的工具怎么改变 Dart vm的值？
 //  debugPaintSizeEnabled=true;
+  runZonedGuarded<Future<Null>>(() async {
+    runApp(MyApp());
+  }, (error, stackTrace) async {
+    print("expectinTest zone error ${stackTrace.toString()}");
+//Do sth for error
+  });
+
   runApp(new MaterialApp(
     home: MyApp(),
 //    checkerboardOffscreenLayers: true,
@@ -203,6 +213,39 @@ class MyApp extends StatelessWidget {
                       .push(MaterialPageRoute(builder: (BuildContext c) {
                     return HitBehaviorDemo();
                   }));
+                },
+              ),
+              ListTile(
+                title: Text('exception  demo'),
+                onTap: () {
+                  SlotExceptionManager.getInstance(buildErrorWidget: () {
+                    // 降级的errorWidget
+                    return Container(
+                      color: Colors.red,
+                    );
+                  },specialClassName: Set<String>()..add("ExceptionTestWidget"));
+                  // .runZonedCatchError(() async{
+                  // test app 异常
+                  String a;
+                  // 同步异常 被zone error 捕捉了，不属于framwork和error build,所以这两个都不会被捕捉到
+                  // print("expectinTest app error ${a.length}");
+
+                  // 已捕获的同步异常 没什么问题
+                  try {
+                    print("expectinTest app error ${a.length}");
+                  } catch (e) {}
+
+                  // // 注释打开是测试异步异常，被zone识别到
+                  // Future.value(1).then((value) {
+                  //   // 异步异常
+                  //   print("app error ${a.length}");
+                  // });
+
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext c) {
+                    return ExceptionTestWidget();
+                  }));
+                  // });
                 },
               ),
             ],
