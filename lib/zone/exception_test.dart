@@ -40,11 +40,31 @@ class SlotExceptionManager {
 
   Set<String> specialClassSet;
 
+  Function(Object error, StackTrace stack) onError;
+
   SlotExceptionManager._() {
+    onError = (Object error, StackTrace stackTrace) {
+      print("expectinTest app error ${Zone.current}");
+      print(
+          "expectinTest zone error stackTrace is ${stackTrace.toString()} \n\n zone  error is ${error.toString()} ");
+      // FlutterError.dumpErrorToConsole(FlutterErrorDetails(
+      //   exception: error,
+      //   stack: stackTrace,
+      // ));
+    };
     _setFlutterErrorBuilder();
     _setErrorWidgetBuilder();
   }
 
+  runZonedCatchError(Function body) async {
+    /// 沙盒, 异步异常捕获
+    runZonedGuarded<Future<void>>(
+      () async {
+        body.call();
+      },
+      onError,
+    );
+  }
 
   /// Flutter Framework 异常信息捕获
   void _setFlutterErrorBuilder() {
