@@ -40,6 +40,49 @@ class ZoneTestWidget extends StatelessWidget {
   }
 }
 
+
+class StateErrorTest extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return StateErrorState();
+  }
+}
+
+class StateErrorState extends State {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("test state"),
+      ),
+      body: Stack(
+        children: <Widget>[
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: RaisedButton(
+              onPressed: () {
+                setState(() {});
+              },
+              child: Text("click me"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // 测试init阶段，错误能否被framework捕捉到
+    // 结论是可以的，答案是在performRebuild里，update child都有try/catch保护(和模式无关)
+    String a;
+    print("expectinTest app error ${a.length}");
+  }
+}
+
+
 class ExceptionTestWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -88,13 +131,15 @@ class ExceptionTestWidget extends StatelessWidget {
       //     }
       print("expectinTest build error ${b.length}");
 
-      //
+
       // 注释打开是测试异步异常，这里并没有被外部自定义的zone识别到，但 内部的是可以的
-      // Future.value(1).then((value) {
-      //   print("app error ${Zone.current}");
-      //   // 异步异常
-      //   print("app error ${Zone.current} ${b.length}");
-      // });
+    String c;
+    Future.value(1).then((value) {
+        // 异步异常
+        print("app async error ${c.length}");
+      }).catchError((error){
+        print(error);
+    });
 
       child = Scaffold(
         body: Center(

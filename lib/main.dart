@@ -243,9 +243,20 @@ class MyApp extends StatelessWidget {
 
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext c) {
-                    return ExceptionTestWidget();
+                    // return ExceptionTestWidget();
+                    return StateErrorTest();
                   }));
                   // });
+                },
+              ),
+              ListTile(
+                title: Text('测试date time'),
+                onTap: () {
+                  DateTime dateTime = DateTime.now();
+                  print("1-${dateTime.millisecondsSinceEpoch}");
+                  Future.delayed(Duration(seconds: 5),(){
+                    print("2-${dateTime.millisecondsSinceEpoch}");
+                  });
                 },
               ),
             ],
