@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_just_test/memory/TestMemory.dart';
 import 'package:flutter_just_test/plugin/platform_view.dart';
 import 'package:flutter_just_test/reqexp/RegExpText.dart';
+import 'package:flutter_just_test/sheet/bottom_sheet_test.dart';
 import 'package:flutter_just_test/touchevent/touch_main.dart';
 import 'package:flutter_just_test/widgets_bind/TestBindingBase.dart';
 import 'package:flutter_just_test/zone/zone_test.dart';
@@ -15,6 +16,7 @@ import 'custom/offscreen_layer_test.dart';
 import 'debug/debug_log_test.dart';
 import 'eventloop/Isolate_demo.dart';
 import 'eventloop/event_test.dart';
+import 'focus/FocusDemo.dart';
 import 'fps/TestFps.dart';
 import 'key/test_key.dart';
 import 'operator/test_operator.dart';
@@ -218,12 +220,15 @@ class MyApp extends StatelessWidget {
               ListTile(
                 title: Text('exception  demo'),
                 onTap: () {
-                  SlotExceptionManager.getInstance(buildErrorWidget: () {
-                    // 降级的errorWidget
-                    return Container(
-                      color: Colors.red,
-                    );
-                  },specialClassName: Set<String>()..add("ExceptionTestWidget"));
+                  SlotExceptionManager.getInstance(
+                      buildErrorWidget: () {
+                        // 降级的errorWidget
+                        return Container(
+                          color: Colors.red,
+                        );
+                      },
+                      specialClassName: Set<String>()
+                        ..add("ExceptionTestWidget"));
                   // .runZonedCatchError(() async{
                   // test app 异常
                   String a;
@@ -253,10 +258,42 @@ class MyApp extends StatelessWidget {
                 title: Text('测试date time'),
                 onTap: () {
                   DateTime dateTime = DateTime.now();
-                  print("1-${dateTime.millisecondsSinceEpoch}");
-                  Future.delayed(Duration(seconds: 5),(){
-                    print("2-${dateTime.millisecondsSinceEpoch}");
+                  print("date time 1-${dateTime.millisecondsSinceEpoch}");
+                  Future.delayed(Duration(seconds: 5), () {
+                    print("date time 2-${dateTime.millisecondsSinceEpoch}");
                   });
+                },
+              ),
+              ListTile(
+                title: Text('FocusDemo测试-焦点变化'),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext c) {
+                    // return ExceptionTestWidget();
+                    return FocusDemoWidget();
+                  }));
+                },
+              ),
+
+              ListTile(
+                title: Text('FocusDemo2测试-'),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext c) {
+                    // return ExceptionTestWidget();
+                    return FocusDemo2Widget();
+                  }));
+                },
+              ),
+
+              ListTile(
+                title: Text('BottomSheet测试'),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext c) {
+                    // return ExceptionTestWidget();
+                    return BottomSheetPageRoute();
+                  }));
                 },
               ),
             ],
