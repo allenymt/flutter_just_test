@@ -12,8 +12,14 @@ class TestKeyWidget extends StatefulWidget {
   _TestState createState() => _TestState();
 }
 
-class _TestState extends State<TestKeyWidget> {
+class _TestState extends State<TestKeyWidget> with WidgetsBindingObserver{
   List<Widget> widgetsStateful;
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("yulun AppLifecycleState $state");
+  }
 
   @override
   void initState() {
@@ -32,11 +38,18 @@ class _TestState extends State<TestKeyWidget> {
 //        ),
 //      ),
 //    ];
-
+    WidgetsBinding.instance.addObserver(this);
     widgetsStateful = [
       StatelessContainer(),
       StatelessContainer(),
     ];
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
