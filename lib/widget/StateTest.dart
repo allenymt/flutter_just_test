@@ -12,6 +12,8 @@ class StateTestParent extends StatefulWidget {
 }
 
 class StateTestParentState extends State {
+  StateTestChild childWidget;
+  StateLessTestChildState childWidget2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +35,16 @@ class StateTestParentState extends State {
           Positioned(
             left: 10,
             top: 10,
-            child: StateTestChild(),
+            // 缓存了widget的情况下，当前父亲调用了setState后，孩子都不会再出发build
+            // 因为在element的updateChild方法中，判断如果新旧两个widget相等，也就是newWidget==oldWidget，不会触发build
+            // 但我们正常写法都是new 一个widget,在==判断中，两个widget的引用地址肯定不同，所以对于stateFul来说会走build
+            // 对于stateLess来说，直接重建了
+            child: childWidget??=StateTestChild(),
           ),
           Positioned(
             left: 10,
             top: 200,
-            child: StateLessTestChildState(),
+            child: childWidget2??=StateLessTestChildState(),
           )
         ],
       ),
@@ -56,20 +62,19 @@ class StateTestChild extends StatefulWidget {
 
 class StateTestChildState extends State<StateTestChild> {
   int i=0;
-  int j=0;
   @override
   void initState() {
     super.initState();
-    j++;
   }
 
   @override
   Widget build(BuildContext context) {
+    print("StateTestChildState build");
     return Container(
       width: 100,
       height: 100,
       alignment: Alignment.center,
-      child: Text("child i is ${i++}, j is $j"),
+      child: Text("child i is ${i++}"),
     );
   }
 }
@@ -79,6 +84,7 @@ class StateLessTestChildState extends StatelessWidget {
   int i=0;
   @override
   Widget build(BuildContext context) {
+    print("StateLessTestChildState build");
     return Container(
       width: 200,height: 200,
       child: Stack(
@@ -89,10 +95,6 @@ class StateLessTestChildState extends StatelessWidget {
             alignment: Alignment.center,
             child: Text("child i is ${i++}"),
           ),left: 0,top: 0,),
-          Positioned(
-            child: StateTestChild(),
-            left: 10,top: 110,
-          ),
         ],
       ),
     );
