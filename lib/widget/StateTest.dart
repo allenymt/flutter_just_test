@@ -39,12 +39,13 @@ class StateTestParentState extends State {
             // 因为在element的updateChild方法中，判断如果新旧两个widget相等，也就是newWidget==oldWidget，不会触发build
             // 但我们正常写法都是new 一个widget,在==判断中，两个widget的引用地址肯定不同，所以对于stateFul来说会走build
             // 对于stateLess来说，直接重建了
+            // 对于其他文章来说，要下沉setState是没错的，因为正常情况都是new Widget写法
             child: childWidget??=StateTestChild(),
           ),
           Positioned(
             left: 10,
             top: 200,
-            child: childWidget2??=StateLessTestChildState(),
+            child: StateLessTestChildState(),
           )
         ],
       ),
@@ -82,6 +83,12 @@ class StateTestChildState extends State<StateTestChild> {
 /// StatelessWidget 每次都重建
 class StateLessTestChildState extends StatelessWidget {
   int i=0;
+
+
+  StateLessTestChildState(){
+    print("StateLessTestChildState create");
+  }
+
   @override
   Widget build(BuildContext context) {
     print("StateLessTestChildState build");
