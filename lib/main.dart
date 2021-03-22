@@ -20,7 +20,9 @@ import 'focus/FocusDemo.dart';
 import 'fps/TestFps.dart';
 import 'key/test_key.dart';
 import 'operator/test_operator.dart';
+import 'reference/reference_pass_test.dart';
 import 'scroll/pageview_tabview_demo.dart';
+import 'tab_lag/tabview_lag_demo.dart';
 import 'touchevent/hitbehavior_demo.dart';
 import 'ui_box/ui_box_demo.dart';
 import 'widget/InheritedWidgetTest.dart';
@@ -71,6 +73,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    print('x is ${immutablePoint?.x},  y is ${immutablePoint?.y}');
+    TestReference t = new TestReference();
+    t.test();
     return MaterialApp(
       title: 'Welcome to Flutter',
       home: Scaffold(
@@ -274,7 +278,6 @@ class MyApp extends StatelessWidget {
                   }));
                 },
               ),
-
               ListTile(
                 title: Text('FocusDemo2测试-'),
                 onTap: () {
@@ -285,7 +288,6 @@ class MyApp extends StatelessWidget {
                   }));
                 },
               ),
-
               ListTile(
                 title: Text('BottomSheet测试'),
                 onTap: () {
@@ -294,6 +296,16 @@ class MyApp extends StatelessWidget {
                     // return ExceptionTestWidget();
                     return BottomSheetPageRoute();
                   }));
+                },
+              ),
+              ListTile(
+                title: Text('tabView 卡顿测试'),
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        TabViewLagDemo(),
+                    transitionDuration: Duration(seconds: 0),
+                  ));
                 },
               ),
             ],
