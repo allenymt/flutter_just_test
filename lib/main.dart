@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_just_test/custom/count_down_widget.dart';
 import 'package:flutter_just_test/memory/TestMemory.dart';
 import 'package:flutter_just_test/plugin/platform_view.dart';
 import 'package:flutter_just_test/reqexp/RegExpText.dart';
@@ -20,7 +21,6 @@ import 'focus/FocusDemo.dart';
 import 'fps/TestFps.dart';
 import 'key/test_key.dart';
 import 'operator/test_operator.dart';
-import 'reference/reference_pass_test.dart';
 import 'scroll/pageview_tabview_demo.dart';
 import 'tab_lag/tabview_lag_demo.dart';
 import 'touchevent/hitbehavior_demo.dart';
@@ -73,8 +73,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    print('x is ${immutablePoint?.x},  y is ${immutablePoint?.y}');
-    TestReference t = new TestReference();
-    t.test();
+//     TestReference t = new TestReference();
+//     t.test();
     return MaterialApp(
       title: 'Welcome to Flutter',
       home: Scaffold(
@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text('事件传递测试 TODO'),
+                title: Text('事件传递测试 Test'),
                 onTap: () {
                   Navigator.of(context).pushNamed("touch_event");
                 },
@@ -304,6 +304,16 @@ class MyApp extends StatelessWidget {
                   Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) =>
                         TabViewLagDemo(),
+                    transitionDuration: Duration(seconds: 0),
+                  ));
+                },
+              ),
+              ListTile(
+                title: Text('简单倒计时组件'),
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => Scaffold(
+                        body: Center(child: CountDownWidget(1616833690000))),
                     transitionDuration: Duration(seconds: 0),
                   ));
                 },
