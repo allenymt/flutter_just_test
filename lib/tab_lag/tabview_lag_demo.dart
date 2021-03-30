@@ -40,45 +40,48 @@ class TabViewLagDemoState extends State<TabViewLagDemo>
     ));
     children.add(_buildPageChild(3));
     return Scaffold(
+        appBar: AppBar(
+          title: Text("tabBarView 嵌套滑动优化"),
+        ),
         body: Column(
-      children: [
-        SizedBox(
-          height: 50,
-          child: TabBar(
-            controller: tabController,
-            indicatorSize: TabBarIndicatorSize.label,
-            labelColor: Color(0xff333333),
-            labelStyle:
-                new TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-            unselectedLabelColor: Color(0xff999999),
-            unselectedLabelStyle:
-                new TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
-            tabs: [
-              Text("1"),
-              Text("2"),
-              Text("3"),
-            ],
-          ),
-        ),
-        Expanded(
-          child: NotificationListener<ScrollNotification>(
-            child: TestTabBarView(
-              children: children,
-              controller: tabController,
-              onCreatePageController: () {
-                return pageController;
-              },
+          children: [
+            SizedBox(
+              height: 50,
+              child: TabBar(
+                controller: tabController,
+                indicatorSize: TabBarIndicatorSize.label,
+                labelColor: Color(0xff333333),
+                labelStyle:
+                    new TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                unselectedLabelColor: Color(0xff999999),
+                unselectedLabelStyle:
+                    new TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
+                tabs: [
+                  Text("1"),
+                  Text("2"),
+                  Text("3"),
+                ],
+              ),
             ),
-            onNotification: (nofi) {
-              if (nofi is ScrollStartNotification) {
-                pageController?.position?.context?.setIgnorePointer(false);
-              }
-              return false;
-            },
-          ),
-        ),
-      ],
-    ));
+            Expanded(
+              child: NotificationListener<ScrollNotification>(
+                child: TestTabBarView(
+                  children: children,
+                  controller: tabController,
+                  onCreatePageController: () {
+                    return pageController;
+                  },
+                ),
+                onNotification: (nofi) {
+                  if (nofi is ScrollStartNotification) {
+                    pageController?.position?.context?.setIgnorePointer(false);
+                  }
+                  return false;
+                },
+              ),
+            ),
+          ],
+        ));
   }
 
   Widget _buildPageChild(int index) {
