@@ -25,6 +25,8 @@ import 'scroll/pageview_tabview_demo.dart';
 import 'tab_lag/tabview_lag_demo.dart';
 import 'touchevent/hitbehavior_demo.dart';
 import 'ui_box/ui_box_demo.dart';
+import 'web/web_view_in_list_view.dart';
+import 'web/web_view_in_tabar_view.dart';
 import 'widget/InheritedWidgetTest.dart';
 import 'widget/StateTest.dart';
 import 'zone/exception_test.dart';
@@ -313,7 +315,50 @@ class MyApp extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) => Scaffold(
-                        body: Center(child: CountDownWidget(1616833690000))),
+                        body: Center(
+                            child: CountDownWidget(
+                      countTimeInMilliseconds:
+                          DateTime.now().millisecondsSinceEpoch + 5 * 1000,
+                      onCountDownFinish: () {
+                        print("倒计时结束啦");
+                      },
+                      buildTimeWidget: (context, h, m, s, finish) {
+                        if (finish) {
+                          return Text("倒计时结束啦");
+                        } else {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(h),
+                              Text(":"),
+                              Text(m),
+                              Text(":"),
+                              Text(s),
+                            ],
+                          );
+                        }
+                      },
+                    ))),
+                    transitionDuration: Duration(seconds: 0),
+                  ));
+                },
+              ),
+              ListTile(
+                title: Text('webview in ListView'),
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        Scaffold(body: Center(child: WebViewInListView())),
+                    transitionDuration: Duration(seconds: 0),
+                  ));
+                },
+              ),
+              ListTile(
+                title: Text('嵌套滑动webview'),
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        Scaffold(body: Center(child: WebViewInTabView())),
                     transitionDuration: Duration(seconds: 0),
                   ));
                 },

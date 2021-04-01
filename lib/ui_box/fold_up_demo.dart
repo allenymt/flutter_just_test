@@ -25,7 +25,7 @@ class FoldUpDemo extends StatelessWidget {
             children: <Widget>[
               FoldUpTextWidget(
                 maxLines: 5,
-                buildSpan: (expand, gestureRecognizer) {
+                buildSpan: (expand, gestureRecognizer,[style]) {
                   return TextSpan(
                       text: expand ? " ..收起" : " ..展开",
                       recognizer: gestureRecognizer,
@@ -40,7 +40,7 @@ class FoldUpDemo extends StatelessWidget {
               ),
               FoldUpTextWidget(
                 maxLines: 2,
-                buildSpan: (expand, gestureRecognizer) {
+                buildSpan: (expand, gestureRecognizer,[style]) {
                   return TextSpan(
                       text: expand ? " ..收起" : " ..展开",
                       recognizer: gestureRecognizer,

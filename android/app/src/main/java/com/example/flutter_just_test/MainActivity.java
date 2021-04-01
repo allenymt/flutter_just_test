@@ -1,26 +1,22 @@
 package com.example.flutter_just_test;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import io.flutter.embedding.android.FlutterActivity;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugins.GeneratedPluginRegistrant;
 
 public class MainActivity extends FlutterActivity {
-  private String sharedText;
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    private String sharedText;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 //    GeneratedPluginRegistrant.registerWith(this);
 
 
 //    registerIntent();
 //
 //    registerPlatformView();
-  }
+    }
 
 //  void registerPlatformView(){
 //    Registrar registrar = registrarFor("com.hangchen/NativeViews");
