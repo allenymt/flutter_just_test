@@ -87,6 +87,7 @@ class _CountDownWidgetState extends State<CountDownWidget>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    /// 回到可交互状态后需要重新计算时间，在pause后，timer会停止计时
     if (state == AppLifecycleState.resumed) {
       _refreshOffset();
     }
@@ -95,6 +96,7 @@ class _CountDownWidgetState extends State<CountDownWidget>
   @override
   void didUpdateWidget(CountDownWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
+    /// 时长不一样地方时候 ，需要重新计算
     if (oldWidget.countTimeInMilliseconds != widget.countTimeInMilliseconds) {
       _refreshOffset();
     }
