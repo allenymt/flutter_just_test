@@ -20,6 +20,7 @@ import 'eventloop/event_test.dart';
 import 'focus/FocusDemo.dart';
 import 'fps/TestFps.dart';
 import 'key/test_key.dart';
+import 'load_more/load_more_demo.dart';
 import 'operator/test_operator.dart';
 import 'scroll/pageview_tabview_demo.dart';
 import 'tab_lag/tabview_lag_demo.dart';
@@ -359,6 +360,16 @@ class MyApp extends StatelessWidget {
                   Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) =>
                         Scaffold(body: Center(child: WebViewInTabView())),
+                    transitionDuration: Duration(seconds: 0),
+                  ));
+                },
+              ),
+              ListTile(
+                title: Text('tabView load more'),
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        Scaffold(body: Center(child: TabViewLoadMoreDemo())),
                     transitionDuration: Duration(seconds: 0),
                   ));
                 },
