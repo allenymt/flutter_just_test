@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_ui_box/flutter_ui_kit.dart';
 
 const int delayPlaySeconds = 4;
 
@@ -11,7 +12,7 @@ const int delayPlaySeconds = 4;
 /// @since 2020-06-23 14:47
 /// 支持无限循环滚动
 /// 支持自动轮播
-class WdbPageView extends StatefulWidget {
+class InfinitePageView extends StatefulWidget {
   /// page数量
   final int count;
 
@@ -50,7 +51,7 @@ class WdbPageView extends StatefulWidget {
   /// 参考了其他方案，index个数都是无限大，这个对于内存肯定是个大问题，除非用key复用，但这样对于业务方来说就显的比较复杂了
   final int countMultiple;
 
-  WdbPageView({
+  InfinitePageView({
     @required this.count,
     @required this.buildItem,
     this.viewportFraction = 1.0,
@@ -68,15 +69,15 @@ class WdbPageView extends StatefulWidget {
 
   @override
   State createState() {
-    return WdbPageViewState();
+    return InfinitePageViewState();
   }
 
-  static WdbPageViewState of(BuildContext context) {
-    return context.findAncestorStateOfType<WdbPageViewState>();
+  static InfinitePageViewState of(BuildContext context) {
+    return context.findAncestorStateOfType<InfinitePageViewState>();
   }
 }
 
-class WdbPageViewState extends State<WdbPageView> with WidgetsBindingObserver {
+class InfinitePageViewState extends State<InfinitePageView> with WidgetsBindingObserver {
   static const String Tag = "WdbPageView";
 
   ///当前页面数量
@@ -139,7 +140,7 @@ class WdbPageViewState extends State<WdbPageView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    Widget child = PageView.builder(
+    Widget child = PreloadPageView.builder(
       controller: _pageController,
       itemCount: innerPageCount,
       onPageChanged: (index) {
@@ -191,7 +192,7 @@ class WdbPageViewState extends State<WdbPageView> with WidgetsBindingObserver {
   }
 
   @override
-  void didUpdateWidget(WdbPageView oldWidget) {
+  void didUpdateWidget(InfinitePageView oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
 

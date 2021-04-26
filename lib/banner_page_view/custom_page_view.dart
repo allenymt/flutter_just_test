@@ -17,7 +17,7 @@ class PageViewDemo extends StatelessWidget {
       body: Center(
         child: AspectRatio(
           aspectRatio: 2,
-          child: WdbPageView(
+          child: InfinitePageView(
             onPageChange: (index) {
               print("onPageChange index is $index");
             },
