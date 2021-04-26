@@ -11,7 +11,7 @@ import 'package:flutter_just_test/widgets_bind/TestBindingBase.dart';
 import 'package:flutter_just_test/zone/zone_test.dart';
 
 import 'animation/FadeAppTest.dart';
-import 'banner_page_view/custom_page_view.dart';
+import 'ui_box/infinite_page_view.dart';
 import 'basic/DynamicChild.dart';
 import 'custom/PaintDemo.dart';
 import 'custom/offscreen_layer_test.dart';
