@@ -11,6 +11,7 @@ import 'package:flutter_just_test/widgets_bind/TestBindingBase.dart';
 import 'package:flutter_just_test/zone/zone_test.dart';
 
 import 'animation/FadeAppTest.dart';
+import 'banner_page_view/custom_page_view.dart';
 import 'basic/DynamicChild.dart';
 import 'custom/PaintDemo.dart';
 import 'custom/offscreen_layer_test.dart';
@@ -20,6 +21,7 @@ import 'eventloop/event_test.dart';
 import 'focus/FocusDemo.dart';
 import 'fps/TestFps.dart';
 import 'key/test_key.dart';
+import 'kraken/KrakenDemo.dart';
 import 'load_more/load_more_demo.dart';
 import 'operator/test_operator.dart';
 import 'scroll/pageview_tabview_demo.dart';
@@ -370,6 +372,26 @@ class MyApp extends StatelessWidget {
                   Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) =>
                         Scaffold(body: Center(child: TabViewLoadMoreDemo())),
+                    transitionDuration: Duration(seconds: 0),
+                  ));
+                },
+              ),
+              ListTile(
+                title: Text('KrakenDemo'),
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        Scaffold(body: Center(child: KrakenDemo())),
+                    transitionDuration: Duration(seconds: 0),
+                  ));
+                },
+              ),
+              ListTile(
+                title: Text('PageViewDemo'),
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        Scaffold(body: Center(child: PageViewDemo())),
                     transitionDuration: Duration(seconds: 0),
                   ));
                 },
