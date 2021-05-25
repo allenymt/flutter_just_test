@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'Isolate_demo.dart';
 
 /// do what
 /// @author yulun
@@ -20,7 +23,8 @@ class EventLoopTestWidget extends StatelessWidget {
             scheduleMicrotask(() => print('EventTest This is a microtask'));
 //            testFuture();
 //            testFutureDelay();
-            testFutureAwait();
+//             testFutureAwait();
+            testCompleter();
           },
         ),
       ),
@@ -83,4 +87,31 @@ class EventLoopTestWidget extends StatelessWidget {
   Future<String> fetchContent() =>
       Future<String>.delayed(Duration(seconds: 3), () => "Hello")
           .then((x) => "$x 2019");
+
+  testCompleter() async {
+    Completer c = new Completer();
+    c.future.then((value) {
+      print("complete value is $value");
+    });
+    for (var i = 0; i < 1000; i++) {
+      if (i == 900 && c.isCompleted == false) {
+        c.completeError('error in $i');
+      }
+      if (i == 800 && c.isCompleted == false) {
+        c.complete('complete in $i');
+      }
+    }
+
+    try {
+      String res = await c.future;
+      print(res); //得到complete传入的返回值 'complete in 800'
+    } catch (e) {
+      print(e);//捕获completeError返回的错误
+    }
+  }
+
+  testCompute()async {
+    IsolateTestWidget.textIsolateCompute();
+  }
+
 }

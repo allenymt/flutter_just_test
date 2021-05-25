@@ -104,7 +104,7 @@ class IsolateTestWidget extends StatelessWidget {
 
 
 // 使用 compute 函数封装 Isolate 的创建和结果的返回
-  textIsolateCompute() async => print(await compute(syncFactorial, 4));
+  static textIsolateCompute() async => print(await compute(syncFactorial, 4));
 }
 
 //Isolate 函数体，参数是主 Isolate 传入的管道

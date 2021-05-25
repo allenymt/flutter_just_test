@@ -30,7 +30,7 @@ dependencies:
   performance_fps: ^0.0.5
   flutter_ui_box: ^0.0.5
   webview_flutter: 0.3.24
-  kraken: '>= 0.0.1' # 阿里kraken
+#  kraken: '>= 0.0.1' # 阿里kraken
 
 dev_dependencies:
   flutter_test:
