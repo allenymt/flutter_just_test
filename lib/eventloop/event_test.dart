@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'Isolate_demo.dart';
@@ -19,7 +18,7 @@ class EventLoopTestWidget extends StatelessWidget {
             "123",
             style: TextStyle(fontSize: 30),
           ),
-          onTap: () async{
+          onTap: () async {
             scheduleMicrotask(() => print('EventTest This is a microtask'));
 //            testFuture();
 //            testFutureDelay();
@@ -71,9 +70,9 @@ class EventLoopTestWidget extends StatelessWidget {
   func() async => print(await fetchContent());
 
   // await 和 async , 只针对声明的函数有效，在这个例子里，输出 func before,func after , hello 2019,整个func都被丢到event queue里等待执行了
-  void testFutureAwait()  {
+  void testFutureAwait() {
     print("func before");
-     func();
+    func();
     print("func after");
   }
 
@@ -90,14 +89,18 @@ class EventLoopTestWidget extends StatelessWidget {
 
   testCompleter() async {
     Completer c = new Completer();
-    c.future.then((value) {
+    c.future.catchError((_) {
+      print("complete error is $_");
+    }).then((value) {
       print("complete value is $value");
     });
     for (var i = 0; i < 1000; i++) {
       if (i == 900 && c.isCompleted == false) {
+        print("complete value is 123213");
         c.completeError('error in $i');
       }
       if (i == 800 && c.isCompleted == false) {
+        print("complete value is 1232132131");
         c.complete('complete in $i');
       }
     }
@@ -106,12 +109,11 @@ class EventLoopTestWidget extends StatelessWidget {
       String res = await c.future;
       print(res); //得到complete传入的返回值 'complete in 800'
     } catch (e) {
-      print(e);//捕获completeError返回的错误
+      print(e); //捕获completeError返回的错误
     }
   }
 
-  testCompute()async {
+  testCompute() async {
     IsolateTestWidget.textIsolateCompute();
   }
-
 }
