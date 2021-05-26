@@ -1,8 +1,10 @@
 package com.example.flutter_just_test;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.app.FlutterActivity;
+import io.flutter.plugins.GeneratedPluginRegistrant;
 
 public class MainActivity extends FlutterActivity {
     private String sharedText;
@@ -10,20 +12,18 @@ public class MainActivity extends FlutterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//    GeneratedPluginRegistrant.registerWith(this);
-
-
+    GeneratedPluginRegistrant.registerWith(this);
 //    registerIntent();
 //
-//    registerPlatformView();
+    registerPlatformView();
     }
 
-//  void registerPlatformView(){
-//    Registrar registrar = registrarFor("com.hangchen/NativeViews");
-//    SampleViewFactory playerViewFactory = new SampleViewFactory(registrar.messenger());
-//    registrar.platformViewRegistry().registerViewFactory("SampleView", playerViewFactory);
-//  }
-//
+  void registerPlatformView(){
+    Registrar registrar = registrarFor("com.hangchen/NativeViews");
+    SampleViewFactory playerViewFactory = new SampleViewFactory(registrar.messenger());
+    registrar.platformViewRegistry().registerViewFactory("SampleView", playerViewFactory);
+  }
+
 //  void registerIntent(){
 //    Intent intent = getIntent();
 //    String action = intent.getAction();
