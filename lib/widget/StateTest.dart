@@ -13,7 +13,8 @@ class StateTestParent extends StatefulWidget {
 
 class StateTestParentState extends State {
   StateTestChild childWidget;
-  StateLessTestChildState childWidget2;
+  StateLessTestChildWidget childWidget2;
+  bool multiTree = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class StateTestParentState extends State {
             right: 10,
             child: RaisedButton(
               onPressed: () {
+                multiTree = !multiTree;
                 setState(() {});
               },
               child: Text("click me"),
@@ -36,18 +38,24 @@ class StateTestParentState extends State {
           Positioned(
             left: 10,
             top: 10,
-            // 缓存了widget的情况下，当前父亲调用了setState后，孩子都不会再出发build
+            // 缓存了widget的情况下，当前父亲调用了setState后，孩子都不会再触发build
             // 因为在element的updateChild方法中，判断如果新旧两个widget相等，也就是newWidget==oldWidget，不会触发build
             // 但我们正常写法都是new 一个widget,在==判断中，两个widget的引用地址肯定不同，所以对于stateFul来说会走build
             // 对于stateLess来说，直接重建了
             // 对于其他文章来说，要下沉setState是没错的，因为正常情况都是new Widget写法
-            // child: childWidget??=StateTestChild(),
-            child: StateTestChild(),
+            
+            // child: childWidget??=StateTestChild(),// 直接复用，没有didupdate build
+            // child: StateTestChild(), // 最正常的写法
+            child: multiTree // 每次都改变widget的层级，updateChild里的runtime type肯定就不一样,所以就不能复用了
+                ? Container(
+                    child: StateTestChild(),
+                  )
+                : StateTestChild(),
           ),
           Positioned(
             left: 10,
             top: 200,
-            child: StateLessTestChildState(),
+            child: StateLessTestChildWidget(),
           )
         ],
       ),
@@ -100,8 +108,7 @@ class StateTestParentState extends State {
     // 9. 对于孩子的statefulElement，在update里会调用state的didUpdateWidget方法，然后调用rebuild
     // 10. 这样又走到第三步了，一直循环下去更新所有的孩子
 
-
-    // buildScope的注册流程，调用流程
+    // BuildOwner-buildScope的注册流程，调用流程
     // 1. 在RenderBinding里注册了PersistentFrameCallback持续回调
     // 2.
 
@@ -164,21 +171,23 @@ class StateTestChildState extends State<StateTestChild> {
   @override
   void didUpdateWidget(StateTestChild oldWidget) {
     super.didUpdateWidget(oldWidget);
+    // 首次创建并不会调用，父控件setState之后才会调用
+    // 当父控件调用setstate之后，它本身被标记为dirty,在element的updateChild里会触发update，继而触发didUpdateWidget
     print("StateTestChildState didUpdateWidget");
   }
 }
 
 /// StatelessWidget 每次都重建
-class StateLessTestChildState extends StatelessWidget {
+class StateLessTestChildWidget extends StatelessWidget {
   int i = 0;
 
-  StateLessTestChildState() {
-    print("StateLessTestChildState create");
+  StateLessTestChildWidget() {
+    print("StateLessTestChildWidget create");
   }
 
   @override
   Widget build(BuildContext context) {
-    print("StateLessTestChildState build");
+    print("StateLessTestChildWidget build");
     return Container(
       width: 200,
       height: 200,
