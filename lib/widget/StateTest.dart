@@ -43,7 +43,7 @@ class StateTestParentState extends State {
             // 但我们正常写法都是new 一个widget,在==判断中，两个widget的引用地址肯定不同，所以对于stateFul来说会走build
             // 对于stateLess来说，直接重建了
             // 对于其他文章来说，要下沉setState是没错的，因为正常情况都是new Widget写法
-            
+
             // child: childWidget??=StateTestChild(),// 直接复用，没有didupdate build
             // child: StateTestChild(), // 最正常的写法
             child: multiTree // 每次都改变widget的层级，updateChild里的runtime type肯定就不一样,所以就不能复用了

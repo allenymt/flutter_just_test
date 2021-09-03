@@ -1,0 +1,2 @@
+// 这是一个空文件，为了骗过 flutter run 时候对于 flutter plugin 的判断，具体代码看 flutter sdk 内部的
+// packages/flutter_tools/lib/src/android/gradle.dart

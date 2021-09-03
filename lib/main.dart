@@ -11,6 +11,7 @@ import 'package:flutter_just_test/widgets_bind/TestBindingBase.dart';
 import 'package:flutter_just_test/zone/zone_test.dart';
 
 import 'animation/FadeAppTest.dart';
+import 'mixin/mixin_test.dart';
 import 'ui_box/infinite_page_view.dart';
 import 'basic/DynamicChild.dart';
 import 'custom/PaintDemo.dart';
@@ -74,7 +75,6 @@ void main() {
   ));
 //      new TestOperatorWidget());
 }
-
 
 
 class MyApp extends StatelessWidget {
@@ -395,6 +395,16 @@ class MyApp extends StatelessWidget {
                   Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) =>
                         Scaffold(body: Center(child: PageViewDemo())),
+                    transitionDuration: Duration(seconds: 0),
+                  ));
+                },
+              ),
+              ListTile(
+                title: Text('mixinTest'),
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        Scaffold(body: Center(child: mixinTest())),
                     transitionDuration: Duration(seconds: 0),
                   ));
                 },
