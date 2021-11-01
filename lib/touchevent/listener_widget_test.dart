@@ -14,6 +14,10 @@ class TestTouchEventWidget extends StatefulWidget {
 class _TestTouchEventState extends State<TestTouchEventWidget> {
   @override
   Widget build(BuildContext context) {
+    // ColorFiltered(
+    //   colorFilter:ColorFilter.mode(Colors.grey, BlendMode.color),
+    //   child: child,
+    // );
     return Scaffold(
       appBar: AppBar(title: Text("事件监听测试"),),
       body: Container(

@@ -55,7 +55,7 @@ class InheritedTest extends InheritedWidget {
   final int testValue;
 
   static InheritedTest of(BuildContext context) {
-    return context.inheritFromWidgetOfExactType(InheritedTest) as InheritedTest;
+    return context.findAncestorStateOfType() as InheritedTest;
   }
 
   @override

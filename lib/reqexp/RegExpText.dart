@@ -16,6 +16,7 @@ class RegExpWidget extends StatelessWidget {
           ),
           onTap: () {
             testRegexp();
+            testReg2();
           },
         ),
       ),
@@ -47,7 +48,8 @@ class RegExpWidget extends StatelessWidget {
         "((http|ftp|https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{1,3})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&%_\\./-~-]*)*(#[a-zA-Z0-9\\&%_\\./-~-]*)?");
 
     textText = "https://www.baidu.comhttps://www.baidu.com";
-    textText = "春光作伴好读书 https://h5123231.weidian123123.com/m/circle-h5/share.html?a=b&b=2#abc=sdf&cdf=123为的的的的";
+    textText =
+        "春光作伴好读书 https://h5123231.weidian123123.com/m/circle-h5/share.html?a=b&b=2#abc=sdf&cdf=123为的的的的";
     String content = textText;
     List<Match> matches = regExp.allMatches(content).toList();
     if (matches.length == 0) {
@@ -71,5 +73,14 @@ class RegExpWidget extends StatelessWidget {
         print("链接后文案 ${content.substring(index, content.length)}");
       }
     }
+  }
+
+  void testReg2() {
+    var refPattern = RegExp('(master|release|dync*)|([0-9].[0-9]*.[0-9]*)');
+    // 说明是微店的库
+    Match m = refPattern.firstMatch('develop');
+
+    if (m != null && m.groupCount > 0) {
+    } else {}
   }
 }
