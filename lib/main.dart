@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_just_test/plugin/platform_view.dart';
 import 'package:flutter_just_test/reqexp/RegExpText.dart';
 import 'package:flutter_just_test/sheet/bottom_sheet_test.dart';
 import 'package:flutter_just_test/touchevent/touch_main.dart';
+import 'package:flutter_just_test/vm/vm_service_page.dart';
 import 'package:flutter_just_test/widgets_bind/TestBindingBase.dart';
 import 'package:flutter_just_test/zone/zone_test.dart';
 
@@ -70,7 +72,9 @@ void main() {
       "test_fps": (BuildContext context) => TestFpsWidget(),
       "zone_test": (BuildContext context) => ZoneTestWidget(),
       "pageView_tabView_demo": (BuildContext context) =>
-          PageViewTabViewConflict()
+          PageViewTabViewConflict(),
+      "vm_service_test":(BuildContext context) =>
+          VmServicePage(),
     },
   ));
 //      new TestOperatorWidget());
@@ -409,6 +413,13 @@ class MyApp extends StatelessWidget {
                   ));
                 },
               ),
+              ListTile(
+                title: Text('vm_service_test'),
+                onTap: () {
+                  Navigator.of(context).pushNamed("vm_service_test");
+                },
+              ),
+
             ],
           )),
     );
