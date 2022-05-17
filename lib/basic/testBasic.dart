@@ -2,14 +2,14 @@
 /// @author yulun
 /// @since 2020-05-14 22:15
 class TestPrivate {
-  int _a;
+  int? _a;
   var _b;
 
-  set a(int value) {
+  set a(int? value) {
     _a = value;
   }
 
-  int get a => _a;
+  int? get a => _a;
 
 
 }

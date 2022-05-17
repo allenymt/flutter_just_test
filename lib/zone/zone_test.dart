@@ -77,8 +77,8 @@ class StateErrorState extends State {
     super.initState();
     // 测试init阶段，错误能否被framework捕捉到
     // 结论是可以的，答案是在performRebuild里，update child都有try/catch保护(和模式无关)
-    String a;
-    print("expectinTest app error ${a.length}");
+    String? a;
+    print("expectinTest app error ${a!.length}");
   }
 }
 
@@ -89,7 +89,7 @@ class ExceptionTestWidget extends StatelessWidget {
     Widget child;
     //试试推荐的做法，沙盒只在入口处
     // // build 异常
-    String b;
+    String? b;
       // framework error,由于是在build中被捕捉到，同时也会被识别触发errorBuild
       // 不对啊 包括在单独的zone里后，系统的FlutterError.onError不会触发了，难道要在系统的zone里才行？
       // 这个zone和error一起使用还是有问题的？ 可以看runZonedGuarded源码，最终会执行下面这段代码
@@ -129,14 +129,14 @@ class ExceptionTestWidget extends StatelessWidget {
       //         ),
       //       );
       //     }
-      print("expectinTest build error ${b.length}");
+      print("expectinTest build error ${b!.length}");
 
 
       // 注释打开是测试异步异常，这里并没有被外部自定义的zone识别到，但 内部的是可以的
-    String c;
+     String? c;
     Future.value(1).then((value) {
         // 异步异常
-        print("app async error ${c.length}");
+        print("app async error ${c!.length}");
       }).catchError((error){
         print(error);
     });

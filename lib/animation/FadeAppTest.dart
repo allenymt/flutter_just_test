@@ -45,17 +45,17 @@ class Client extends MySuper with Mixin {}
 
 class InheritedTest extends InheritedWidget {
   const InheritedTest({
-    Key key,
-    @required this.testValue,
-    @required Widget child,
+    Key? key,
+    required this.testValue,
+    required Widget child,
   })  : assert(testValue != null),
         assert(child != null),
         super(key: key, child: child);
 
   final int testValue;
 
-  static InheritedTest of(BuildContext context) {
-    return context.findAncestorStateOfType() as InheritedTest;
+  static InheritedTest? of(BuildContext context) {
+    return context.findAncestorStateOfType() as InheritedTest?;
   }
 
   @override
@@ -66,16 +66,16 @@ class InheritedTest extends InheritedWidget {
 }
 
 class MyFadeTest extends StatefulWidget {
-  MyFadeTest({Key key, this.title}) : super(key: key);
-  final String title;
+  MyFadeTest({Key? key, this.title}) : super(key: key);
+  final String? title;
 
   @override
   _MyFadeTest createState() => _MyFadeTest();
 }
 
 class _MyFadeTest extends State<MyFadeTest> with TickerProviderStateMixin {
-  AnimationController controller;
-  CurvedAnimation curve;
+  late AnimationController controller;
+  late CurvedAnimation curve;
   int a=0;
   @override
   void initState() {
@@ -91,7 +91,7 @@ class _MyFadeTest extends State<MyFadeTest> with TickerProviderStateMixin {
     print("_MyFadeTest build");
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title!),
       ),
       body: Center(
           child: Container(

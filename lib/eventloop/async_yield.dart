@@ -16,7 +16,7 @@ class GenerateFunctionState extends State<GenerateFunction>{
 
   @override
   Widget build(BuildContext context) {
-
+    return Container();
   }
 }
 

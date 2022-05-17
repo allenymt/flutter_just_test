@@ -9,22 +9,22 @@ import 'package:vm_service/vm_service_io.dart';
 
 class VMServiceTest {
   // 单例
-  static VMServiceTest _instance;
+  static VMServiceTest? _instance;
 
-  factory VMServiceTest() => _getInstance();
+  factory VMServiceTest() => _getInstance()!;
 
-  static VMServiceTest get instance => _getInstance();
+  static VMServiceTest? get instance => _getInstance();
 
-  static VMServiceTest _getInstance() {
+  static VMServiceTest? _getInstance() {
     _instance ??= VMServiceTest._internal();
     return _instance;
   }
 
   // 当前运行的isolateId
-  String _isolateId;
+  String? _isolateId;
 
   // 获取当前isolate的Id
-  String get isolateId {
+  String? get isolateId {
     if (_isolateId != null) {
       return _isolateId;
     }
@@ -39,25 +39,25 @@ class VMServiceTest {
   String memoryUsed = '';
 
   // 当前vm内存快照
-  AllocationProfile snapshotAllocation;
+  AllocationProfile? snapshotAllocation;
 
   // 标记vm连接状态
   bool _initSuccess = false;
 
   //vm 服务协议信息
-  ServiceProtocolInfo _serviceInfo;
+  late ServiceProtocolInfo _serviceInfo;
 
   // 服务协议url
-  Uri _serviceUri;
+  Uri? _serviceUri;
 
   // socket链接url
-  Uri _socketUri;
+  Uri? _socketUri;
 
   // 当前vm服务
-  VmService _vmService;
+  late VmService _vmService;
 
   // 当前进程内的Isolate
-  List<IsolateRef> _userIsolates;
+  late  List<IsolateRef> _userIsolates;
 
   VMServiceTest._internal();
 
@@ -73,7 +73,7 @@ class VMServiceTest {
       FlutterTestLog.e("服务协议地址为空");
       return false;
     }
-    _socketUri = convertToWebSocketUrl(serviceProtocolUrl: _serviceUri);
+    _socketUri = convertToWebSocketUrl(serviceProtocolUrl: _serviceUri!);
     _vmService = await vmServiceConnectUri(_socketUri.toString());
 
     _vmService.onIsolateEvent.listen((e) => print('onIsolateEvent: ${e}'));
@@ -103,8 +103,8 @@ class VMServiceTest {
     buffer.write('system-------------------${_vm.operatingSystem}');
     vmInfo = buffer.toString();
     FlutterTestLog.i("updateIsolates-info-$vmInfo");
-    _userIsolates = _vm.isolates;
-    if (_userIsolates == null || _userIsolates.isEmpty) {
+    _userIsolates = _vm.isolates!;
+    if (_userIsolates == null || _userIsolates!.isEmpty) {
       return false;
     }
     return true;
@@ -114,38 +114,38 @@ class VMServiceTest {
   /// externalUsage，是 Dart 管理的非 Dart 内存量，VM或者引擎的内存
   /// heapCapacity，系统看dart堆栈的内存，实际使用比这个小，像是申请的内存
   /// heapUsage，dart堆栈实际使用的内存
-  String _memoryUsed(MemoryUsage usage) {
+  String _memoryUsed(MemoryUsage? usage) {
     memoryUsed = '';
     if (usage == null) {
       return memoryUsed;
     }
     var buffer = StringBuffer();
-    buffer.writeln('dart关联的引擎内存------${byteToString(usage.externalUsage)}');
-    buffer.writeln('dart占用内存-----------${byteToString(usage.heapCapacity)}');
-    buffer.write('dart使用内存-----------${byteToString(usage.heapUsage)}');
+    buffer.writeln('dart关联的引擎内存------${byteToString(usage.externalUsage!)}');
+    buffer.writeln('dart占用内存-----------${byteToString(usage.heapCapacity!)}');
+    buffer.write('dart使用内存-----------${byteToString(usage.heapUsage!)}');
     memoryUsed = buffer.toString();
     FlutterTestLog.i("内存快照: $memoryUsed");
     return memoryUsed;
   }
 
   /// 获取内存分配快照
-  Future<AllocationProfile> takeSnapshot() async {
+  Future<AllocationProfile?> takeSnapshot() async {
     snapshotAllocation = null;
     snapshotAllocation =
-        await _vmService.getAllocationProfile(isolateId, gc: true);
+        await _vmService.getAllocationProfile(isolateId!, gc: true);
     _memoryUsed(snapshotAllocation?.memoryUsage);
     return snapshotAllocation;
   }
 
   /// 返回dart class 的描述信息
   Future<Class> getClassInfo(String classId) async {
-    return await _vmService.getObject(isolateId, classId) as Class;
+    return await _vmService.getObject(isolateId!, classId) as Class;
   }
 
   ///返回最基础的类描述信息
   Future<Obj> getObjectInfo(String objectId) async {
     try {
-      return await _vmService.getObject(isolateId, objectId);
+      return await _vmService.getObject(isolateId!, objectId);
     } catch (e, s) {
       return Future.value(null);
     }
@@ -153,35 +153,35 @@ class VMServiceTest {
 
   ///统计某个class在vm中的所有实例
   Future<InstanceSet> getClassInstances(String classId, int pageSize) async {
-    return await _vmService.getInstances(isolateId, classId, pageSize);
+    return await _vmService.getInstances(isolateId!, classId, pageSize);
   }
 
   Future testScriptParse() async {
     assert(_userIsolates != null);
-    IsolateRef isolateRef = _userIsolates?.first;
-    final isolateId = isolateRef.id;
-    final Isolate isolate = await _vmService.getIsolate(isolateId);
+    IsolateRef? isolateRef = _userIsolates.first;
+    final String? isolateId = isolateRef?.id;
+    final Isolate isolate = await _vmService.getIsolate(isolateId!);
     final Library rootLibrary =
-        await _vmService.getObject(isolateId, isolate.rootLib.id) as Library;
-    final ScriptRef scriptRef = rootLibrary.scripts.first;
+        await _vmService.getObject(isolateId!, isolate.rootLib!.id!) as Library;
+    final ScriptRef scriptRef = rootLibrary.scripts!.first;
 
     final Script script =
-        await _vmService.getObject(isolateId, scriptRef.id) as Script;
+        await _vmService.getObject(isolateId!, scriptRef.id!) as Script;
     print(script);
     print(script.uri);
     print(script.library);
-    print(script.source.length);
-    print(script.tokenPosTable.length);
+    print(script.source!.length);
+    print(script.tokenPosTable!.length);
   }
 
   Future testSourceReport() async {
     assert(_userIsolates != null);
-    IsolateRef isolateRef = _userIsolates?.first;
-    final isolateId = isolateRef.id;
-    final Isolate isolate = await _vmService.getIsolate(isolateId);
+    IsolateRef? isolateRef = _userIsolates?.first;
+    final isolateId = isolateRef?.id!;
+    final Isolate isolate = await _vmService.getIsolate(isolateId!);
     final Library rootLibrary =
-        await _vmService.getObject(isolateId, isolate.rootLib.id) as Library;
-    final ScriptRef scriptRef = rootLibrary.scripts.first;
+        await _vmService.getObject(isolateId, isolate.rootLib!.id!) as Library;
+    final ScriptRef scriptRef = rootLibrary.scripts!.first;
 
     // make sure some code has run
     await _vmService.resume(isolateId);
@@ -190,9 +190,9 @@ class VMServiceTest {
     final SourceReport sourceReport = await _vmService.getSourceReport(
         isolateId, [SourceReportKind.kCoverage],
         scriptId: scriptRef.id);
-    for (SourceReportRange range in sourceReport.ranges) {
+    for (SourceReportRange range in sourceReport.ranges!) {
       print('  $range');
-      if (range.coverage = null) {
+      if ((range.coverage = null)!) {
         print('  ${range.coverage}');
       }
     }
@@ -217,10 +217,10 @@ class VMServiceTest {
       if (e.service == serviceName && e.kind == EventKind.kServiceRegistered) {
         assert(e.alias == serviceAlias);
         Response response = await _vmService.callMethod(
-          e.method,
+          e.method!,
           args: <String, dynamic>{'input': movedValue},
         );
-        assert(response.json['output'] == movedValue);
+        assert(response.json!['output'] == movedValue);
         completer.complete();
       }
     });

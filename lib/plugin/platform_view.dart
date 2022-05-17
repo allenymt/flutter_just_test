@@ -11,7 +11,7 @@ class PlatformViewTest extends StatefulWidget {
 }
 
 class _PlatformViewTestState extends State<PlatformViewTest> {
-  NativeViewController controller;
+  NativeViewController? controller;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _PlatformViewTestState extends State<PlatformViewTest> {
         ),
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.change_history),
-            onPressed: () => controller.changeBackgroundColor()));
+            onPressed: () => controller!.changeBackgroundColor()));
   }
 
   @override
@@ -44,11 +44,11 @@ class _PlatformViewTestState extends State<PlatformViewTest> {
 
 class SampleView extends StatefulWidget {
   const SampleView({
-    Key key,
+    Key? key,
     this.controller,
   }) : super(key: key);
 
-  final NativeViewController controller;
+  final NativeViewController? controller;
 
   @override
   State<StatefulWidget> createState() => _SampleViewState();
@@ -73,7 +73,7 @@ class _SampleViewState extends State<SampleView> {
 }
 
 class NativeViewController {
-  MethodChannel _channel;
+  late MethodChannel _channel;
 
   onCreate(int id) {
     _channel = MethodChannel('samples.chenhang/native_views_$id');

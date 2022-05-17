@@ -25,26 +25,26 @@ class _VmServicePageState extends State {
         ListTile(
           title: Text('初始化链接虚拟机'),
           onTap: () async {
-            await VMServiceTest.instance.initService();
-            await VMServiceTest.instance.updateIsolates();
+            await VMServiceTest.instance!.initService();
+            await VMServiceTest.instance!.updateIsolates();
           },
         ),
         ListTile(
           title: Text('获取内存快照'),
           onTap: () async {
-            await VMServiceTest.instance.takeSnapshot();
+            await VMServiceTest.instance!.takeSnapshot();
           },
         ),
         ListTile(
           title: Text('测试isolate脚本解析'),
           onTap: () async {
-            await VMServiceTest.instance.testScriptParse();
+            await VMServiceTest.instance!.testScriptParse();
           },
         ),
         ListTile(
           title: Text('测试资源上报解析'),
           onTap: () async {
-            await VMServiceTest.instance.testSourceReport();
+            await VMServiceTest.instance!.testSourceReport();
           },
         ),
       ]),

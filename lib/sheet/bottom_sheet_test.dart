@@ -15,7 +15,7 @@ class BottomSheetPageRoute extends StatefulWidget {
 }
 
 class BottomSheetPageRouteState extends State<BottomSheetPageRoute> {
-  Map<String, dynamic> resultMap;
+  Map<String, dynamic>? resultMap;
 
   @override
   Widget build(BuildContext context) {

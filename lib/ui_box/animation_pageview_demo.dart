@@ -30,7 +30,7 @@ class _AnimationPageViewWidgetState extends State<AnimationPageViewWidget> {
         controller: PageController(),
         itemBuilder: (context, index) {
           String imgUrl = pics.elementAt(index);
-          double w = MediaQuery.of(context)?.size?.width;
+          double w = MediaQuery.of(context)?.size?.width ?? 0;
           double h = w * calculateImgScale(index);
           return GestureDetector(
             onTap: () {
@@ -52,7 +52,7 @@ class _AnimationPageViewWidgetState extends State<AnimationPageViewWidget> {
       itemCount: pics.length,
       currentPageIndex: _currentIndex,
       computeAspectRadio: (index) {
-        return calculateImgScale(index);
+        return calculateImgScale(index!);
       },
       notifyScroll: (scrollNotification) {},
     );

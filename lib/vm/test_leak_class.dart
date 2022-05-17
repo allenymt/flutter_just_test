@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 class TestLeakClass {
   int a = 1;
-  List<StatefulWidget> widgetList;
+  List<StatefulWidget>? widgetList;
   String s = "123";
 
   void testFun() {

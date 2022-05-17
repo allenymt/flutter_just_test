@@ -12,8 +12,8 @@ class StateTestParent extends StatefulWidget {
 }
 
 class StateTestParentState extends State {
-  StateTestChild childWidget;
-  StateLessTestChildWidget childWidget2;
+  StateTestChild? childWidget;
+  StateLessTestChildWidget? childWidget2;
   bool multiTree = false;
 
   @override

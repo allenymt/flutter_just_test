@@ -78,7 +78,7 @@ class RegExpWidget extends StatelessWidget {
   void testReg2() {
     var refPattern = RegExp('(master|release|dync*)|([0-9].[0-9]*.[0-9]*)');
     // 说明是微店的库
-    Match m = refPattern.firstMatch('develop');
+    Match? m = refPattern.firstMatch('develop');
 
     if (m != null && m.groupCount > 0) {
     } else {}

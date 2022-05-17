@@ -18,7 +18,7 @@ class WebViewInTabView extends StatefulWidget {
 
 class WebViewInTabViewState extends State<WebViewInTabView>
     with SingleTickerProviderStateMixin {
-  TabController tabController;
+  TabController? tabController;
 
   @override
   void initState() {
@@ -206,7 +206,7 @@ class WebViewInTabViewState extends State<WebViewInTabView>
 
 class PlatformViewVerticalGestureRecognizer
     extends VerticalDragGestureRecognizer {
-  PlatformViewVerticalGestureRecognizer({PointerDeviceKind kind})
+  PlatformViewVerticalGestureRecognizer({PointerDeviceKind? kind})
       : super(kind: kind);
 
   Offset _dragDistance = Offset.zero;

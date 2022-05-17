@@ -16,7 +16,7 @@ class DynamicChildApp extends StatelessWidget {
 }
 
 class DynamicChildPage extends StatefulWidget {
-  DynamicChildPage({Key key}) : super(key: key);
+  DynamicChildPage({Key? key}) : super(key: key);
 
   @override
   _DynamicChildPageState createState() => _DynamicChildPageState();

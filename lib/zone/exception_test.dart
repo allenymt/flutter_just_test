@@ -9,25 +9,25 @@ import 'package:flutter/material.dart';
 /// 异常的捕获和处理，
 /// 特殊异常的识别和处理
 class SlotExceptionManager {
-  static SlotExceptionManager _instance;
+  static SlotExceptionManager? _instance;
 
-  static SlotExceptionManager getInstance(
-      {@required Function buildErrorWidget, Set<String> specialClassName}) {
+  static SlotExceptionManager? getInstance(
+      {required Function buildErrorWidget, Set<String>? specialClassName}) {
     assert(buildErrorWidget != null, "buildErrorWidget can't be null");
     if (_instance == null) {
       _instance = SlotExceptionManager._();
     }
-    _instance.buildErrorWidget = buildErrorWidget;
-    _instance.specialClassSet = specialClassName ?? Set<String>();
+    _instance!.buildErrorWidget = buildErrorWidget as Widget Function()?;
+    _instance!.specialClassSet = specialClassName ?? Set<String>();
     assert(() {
-      _instance._isFlutterDebug = true;
+      _instance!._isFlutterDebug = true;
       return true;
     }());
 
     /// debug时候在重新覆盖一次
     assert(() {
       Future.delayed(Duration(seconds: 2), () {
-        _instance._setFlutterErrorBuilder();
+        _instance!._setFlutterErrorBuilder();
       });
       return true;
     }());
@@ -36,11 +36,11 @@ class SlotExceptionManager {
 
   bool _isFlutterDebug = false;
 
-  Widget Function() buildErrorWidget;
+  Widget Function()? buildErrorWidget;
 
-  Set<String> specialClassSet;
+  Set<String>? specialClassSet;
 
-  Function(Object error, StackTrace stack) onError;
+  late Function(Object error, StackTrace stack) onError;
 
   SlotExceptionManager._() {
     onError = (Object error, StackTrace stackTrace) {
@@ -71,12 +71,12 @@ class SlotExceptionManager {
     final defaultOnError = FlutterError.onError;
     FlutterError.onError = (FlutterErrorDetails details) {
       print(
-          "expectinTest framework error ${details?.exception} stacktrace is ${details?.stack?.toString()}23123");
+          "expectinTest framework error ${details.exception} stacktrace is ${details.stack?.toString()}23123");
 
       // 如果不是dynamic异常，直接抛给默认的处理
       if (buildErrorWidget == null || !checkIfSpecialException(details)) {
         try {
-          defaultOnError(details);
+          defaultOnError!(details);
         } catch (e, s) {
           FlutterError.dumpErrorToConsole(FlutterErrorDetails(
             exception: e,
@@ -90,10 +90,10 @@ class SlotExceptionManager {
 
       if (details.library == 'widgets library' &&
           details.context is ErrorDescription) {
-        ErrorDescription description = details.context;
+        ErrorDescription description = details.context as ErrorDescription;
         bool isDescNotEmpty = description.value?.isNotEmpty ?? false;
         if (isDescNotEmpty == true && description.value[0] is String) {
-          String descString = description.value[0];
+          String descString = description.value[0] as String;
 
           if (descString == 'attaching to the render tree') {
             /// `flutter/lib/src/widgets/binding.dart#1146`
@@ -133,18 +133,18 @@ class SlotExceptionManager {
 
       Widget errorBuilder;
 
-      errorBuilder = buildErrorWidget();
+      errorBuilder = buildErrorWidget!();
       return errorBuilder;
     };
   }
 
   bool checkIfSpecialException(FlutterErrorDetails details) {
-    if (specialClassSet == null || specialClassSet.isEmpty) return false;
+    if (specialClassSet == null || specialClassSet!.isEmpty) return false;
     if (details == null || details.context == null) {
       return false;
     }
     bool isSpecialError = false;
-    specialClassSet.forEach((element) {
+    specialClassSet!.forEach((element) {
       if (details?.context?.toString()?.contains(element) ?? false) {
         isSpecialError = true;
       }

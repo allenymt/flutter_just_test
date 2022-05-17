@@ -43,7 +43,7 @@ class FocusDemoState extends State<FocusDemoWidget> {
       debugLabel: 'Scope',
       autofocus: true,
       child: DefaultTextStyle(
-        style: textTheme.headline4,
+        style: textTheme.headline4!,
         child: Focus(
           onKey: _handleKeyPress,
           debugLabel: 'Button',
@@ -133,7 +133,7 @@ class FocusDemo2State extends State<FocusDemo2Widget> {
                   child: Text('ANOTHER BUTTON TO FOCUS'),
                 ),
                 DefaultTextStyle(
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.headline2!,
                     child: Text('BACKDROP')),
               ],
             ),
@@ -162,7 +162,7 @@ class FocusDemo2State extends State<FocusDemo2Widget> {
                 ? null
                 : () => setState(() => backdropIsVisible = true),
             child: DefaultTextStyle(
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.headline2!,
                 child: Text('FOREGROUND')),
           ),
         ),
@@ -180,7 +180,7 @@ class FocusDemo2State extends State<FocusDemo2Widget> {
 
 class Pane extends StatelessWidget {
   const Pane({
-    Key key,
+    Key? key,
     this.focusNode,
     this.onPressed,
     this.child,
@@ -188,11 +188,11 @@ class Pane extends StatelessWidget {
     this.icon,
   }) : super(key: key);
 
-  final FocusNode focusNode;
-  final VoidCallback onPressed;
-  final Widget child;
-  final Color backgroundColor;
-  final Widget icon;
+  final FocusNode? focusNode;
+  final VoidCallback? onPressed;
+  final Widget? child;
+  final Color? backgroundColor;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -210,7 +210,7 @@ class Pane extends StatelessWidget {
               autofocus: true,
               focusNode: focusNode,
               onPressed: onPressed,
-              icon: icon,
+              icon: icon!,
             ),
           ),
         ],

@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -247,13 +247,13 @@ class MyApp extends StatelessWidget {
                         ..add("ExceptionTestWidget"));
                   // .runZonedCatchError(() async{
                   // test app 异常
-                  String a;
+                  String? a;
                   // 同步异常 被zone error 捕捉了，不属于framwork和error build,所以这两个都不会被捕捉到
                   // print("expectinTest app error ${a.length}");
 
                   // 已捕获的同步异常 没什么问题
                   try {
-                    print("expectinTest app error ${a.length}");
+                    print("expectinTest app error ${a!.length}");
                   } catch (e) {}
 
                   // // 注释打开是测试异步异常，被zone识别到

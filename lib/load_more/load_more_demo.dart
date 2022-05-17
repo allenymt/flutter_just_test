@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -17,7 +19,7 @@ class TabViewLagDemoState extends State<TabViewLoadMoreDemo>
     with SingleTickerProviderStateMixin {
 
 
-  TabController tabController;
+  TabController? tabController;
 
   @override
   void initState() {
@@ -133,7 +135,7 @@ class TabViewLagDemoState extends State<TabViewLoadMoreDemo>
             !_lastPage() &&
             !isLoadingMore) {
           isLoadingMore = true;
-          SchedulerBinding.instance.addPostFrameCallback((_) {
+          SchedulerBinding.instance!.addPostFrameCallback((_) {
             _addItems();
           });
         }
@@ -188,9 +190,9 @@ class TabViewLagDemoState extends State<TabViewLoadMoreDemo>
     Future.delayed(Duration(milliseconds: 2 * 1000), () {
       dataList += 20;
       pageIndex++;
-    }).then((value) => setState(() {
+    }).then(((value) => setState(() {
           isLoadingMore = false;
-        }));
+        })));
   }
 
   bool _lastPage() {

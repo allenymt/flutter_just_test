@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:isolate';
 
 import 'package:flutter/foundation.dart';
@@ -32,7 +33,7 @@ class IsolateTestWidget extends StatelessWidget {
   }
 
   /// 一次性port
-  Isolate isolate1;
+  Isolate? isolate1;
 
   _portOnce() async {
     // 创建并发 Isolate，并传入发送管道
@@ -54,16 +55,16 @@ class IsolateTestWidget extends StatelessWidget {
   /// 一次性port end
 
   /// reuse port start
-  SendPort _reUseSendPort;
-  Isolate isolate2;
+  SendPort? _reUseSendPort;
+  Isolate? isolate2;
 
   Future<void> _checkInit() async {
     if (isolate2 == null) {
       ReceivePort receivePort = new ReceivePort();
       isolate2 = await Isolate.spawn(_binding, receivePort.sendPort);
-      _reUseSendPort = await receivePort.first;
+      _reUseSendPort = await (receivePort.first as FutureOr<SendPort?>);
     }
-    _reUseSendPort.send("1234");
+    _reUseSendPort!.send("1234");
   }
 
   static void _binding(SendPort sendPort) {
@@ -95,7 +96,7 @@ class IsolateTestWidget extends StatelessWidget {
 
 
 // 同步计算阶乘
-  static int syncFactorial(n) => n < 2 ? n : n * syncFactorial(n - 1);
+  static int? syncFactorial(n) => n < 2 ? n : n * syncFactorial(n - 1);
 
   textIsolate2() async {
     // 等待并发计算阶乘结果

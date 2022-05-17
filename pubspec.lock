@@ -49,14 +49,14 @@ packages:
       name: cupertino_icons
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.3"
+    version: "1.0.4"
   english_words:
     dependency: "direct main"
     description:
       name: english_words
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.1.5"
+    version: "4.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -80,7 +80,7 @@ packages:
       name: flutter_ui_box
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.8"
+    version: "0.0.9"
   matcher:
     dependency: transitive
     description:
@@ -108,11 +108,22 @@ packages:
       name: performance_fps
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.7"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.2"
   sky_engine:
     dependency: transitive
-    description: flutter
-    source: sdk
+    description:
+      path: "."
+      ref: "2.5.1009"
+      resolved-ref: "95de0feac16ddc6c43a437ac9c3d57f58bfdc7d1"
+      url: "ssh://git@gitlab.vdian.net:60022/flutter/sky_engine.git"
+    source: git
     version: "0.0.99"
   source_span:
     dependency: transitive
@@ -183,7 +194,28 @@ packages:
       name: webview_flutter
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.24"
+    version: "3.0.4"
+  webview_flutter_android:
+    dependency: transitive
+    description:
+      name: webview_flutter_android
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.8.8"
+  webview_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: webview_flutter_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.8.1"
+  webview_flutter_wkwebview:
+    dependency: transitive
+    description:
+      name: webview_flutter_wkwebview
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.7.5"
 sdks:
-  dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.5"
+  dart: ">=2.14.0 <3.0.0"
+  flutter: ">=2.5.0"

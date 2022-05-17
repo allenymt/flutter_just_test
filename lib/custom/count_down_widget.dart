@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 
 /// 倒计时组件
 class CountDownWidget extends StatefulWidget {
-  final int countTimeInMilliseconds;
+  final int? countTimeInMilliseconds;
 
-  final Function() onCountDownFinish;
+  final Function()? onCountDownFinish;
 
   final Widget Function(BuildContext context, String hour, String minute,
-      String seconds, bool finish) buildTimeWidget;
+      String seconds, bool finish)? buildTimeWidget;
 
   CountDownWidget(
       {this.countTimeInMilliseconds,
@@ -28,8 +28,8 @@ class CountDownWidget extends StatefulWidget {
 
 class _CountDownWidgetState extends State<CountDownWidget>
     with WidgetsBindingObserver {
-  Timer _timer;
-  Duration offset;
+  Timer? _timer;
+  late Duration offset;
 
   String parseHour() {
     int hour = offset.inHours.remainder(60);
@@ -62,15 +62,15 @@ class _CountDownWidgetState extends State<CountDownWidget>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     _refreshOffset();
     if (offset.inSeconds > 0) {
       _timer = Timer.periodic(Duration(seconds: 1), (timer) {
         // 每秒刷新一次
         offset = Duration(milliseconds: offset.inMilliseconds - 1000);
         if (offset.inSeconds <= 0) {
-          _timer.cancel();
-          widget?.onCountDownFinish();
+          _timer!.cancel();
+          widget?.onCountDownFinish!();
         }
         setState(() {});
       });
@@ -80,7 +80,7 @@ class _CountDownWidgetState extends State<CountDownWidget>
   /// 刷新计时器
   void _refreshOffset() {
     DateTime saleDate =
-    DateTime.fromMillisecondsSinceEpoch(widget.countTimeInMilliseconds);
+    DateTime.fromMillisecondsSinceEpoch(widget.countTimeInMilliseconds!);
     DateTime now = DateTime.now();
     offset = saleDate.difference(now);
   }
@@ -105,13 +105,13 @@ class _CountDownWidgetState extends State<CountDownWidget>
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     _timer?.cancel();
   }
 
   @override
   build(BuildContext context) {
-    return widget.buildTimeWidget(context, parseHour(), parseMinute(),
+    return widget.buildTimeWidget!(context, parseHour(), parseMinute(),
         parseSeconds(), offset.inSeconds <= 0);
   }
 }

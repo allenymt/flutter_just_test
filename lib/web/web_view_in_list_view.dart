@@ -73,7 +73,7 @@ class WebViewInListViewState extends State<WebViewInListView>
 
 class PlatformViewVerticalGestureRecognizer
     extends VerticalDragGestureRecognizer {
-  PlatformViewVerticalGestureRecognizer({PointerDeviceKind kind})
+  PlatformViewVerticalGestureRecognizer({PointerDeviceKind? kind})
       : super(kind: kind);
 
   Offset _dragDistance = Offset.zero;

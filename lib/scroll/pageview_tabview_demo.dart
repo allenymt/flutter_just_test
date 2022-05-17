@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 /// tabview 嵌套 pageview  冲突解决
 class PageViewTabViewConflict extends StatefulWidget {
-  PageViewTabViewConflict({Key key}) : super(key: key);
+  PageViewTabViewConflict({Key? key}) : super(key: key);
 
   @override
   _PageViewTabViewConflictState createState() => _PageViewTabViewConflictState();
@@ -42,7 +42,7 @@ class GreenShades extends StatefulWidget {
 
 class _GreenShadesState extends State<GreenShades>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
 
   @override
   void initState() {
@@ -53,9 +53,9 @@ class _GreenShadesState extends State<GreenShades>
   @override
   Widget build(BuildContext context) {
     // Local dragStartDetail.
-    DragStartDetails dragStartDetails;
+    DragStartDetails? dragStartDetails;
     // Current drag instance - should be instantiated on overscroll and updated alongside.
-    Drag drag;
+    Drag? drag;
     return Column(
       children: <Widget>[
         TabBar(
@@ -70,13 +70,13 @@ class _GreenShadesState extends State<GreenShades>
         ),
         Expanded(
           child: NotificationListener(
-            onNotification: (notification) {
+            onNotification: (dynamic notification) {
               if (notification is ScrollStartNotification) {
                 dragStartDetails = notification.dragDetails;
               }
               if (notification is OverscrollNotification) {
-                drag = _pageController.position.drag(dragStartDetails, () {});
-                drag.update(notification.dragDetails);
+                drag = _pageController.position.drag(dragStartDetails!, () {});
+                drag!.update(notification.dragDetails!);
               }
               if (notification is ScrollEndNotification) {
                 drag?.cancel();

@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 /// @since 2021-08-24 11:09
 
 mixin StaticTest {
-  static bool _enable2201;
-  static Future<bool> _fEnable2201;
-  Future<bool> enable2201() async {
+  static bool? _enable2201;
+  static Future<bool>? _fEnable2201;
+  Future<bool?> enable2201() async {
     if (_enable2201 != null) {
       print("mixinTest _enable2201 not null $_enable2201");
       return _enable2201;
@@ -27,8 +27,8 @@ mixin StaticTest {
 }
 
 class MixinTestA with StaticTest {
-  String a;
-  String b;
+  String? a;
+  String? b;
 
   void testA() {
     enable2201();
@@ -36,8 +36,8 @@ class MixinTestA with StaticTest {
 }
 
 class MixinTestB with StaticTest {
-  String a;
-  String b;
+  String? a;
+  String? b;
 
   void testB() {
     enable2201();

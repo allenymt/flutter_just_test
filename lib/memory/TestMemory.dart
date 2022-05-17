@@ -43,9 +43,9 @@ class TestMemoryState extends State<TestMemory> {
 }
 
 class TestA {
-  int a;
-  int b;
-  double c;
+  int? a;
+  int? b;
+  double? c;
 
   TestA._(int a, int b) {
     this.a = a;
@@ -59,9 +59,9 @@ class TestA {
 }
 
 class TestB {
-  int a;
-  int b;
-  double c;
+  int? a;
+  int? b;
+  double? c;
 
   TestB._(int a, int b) {
     this.a = a;

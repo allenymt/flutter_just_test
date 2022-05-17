@@ -13,7 +13,7 @@ class InheritedTestModel {
 ///  InheritedWidget的具体实现
 class InheritedContext extends InheritedWidget {
   //数据
-  final InheritedTestModel inheritedTestModel;
+  final InheritedTestModel? inheritedTestModel;
 
   //点击+号的方法
   final Function() increment;
@@ -22,14 +22,14 @@ class InheritedContext extends InheritedWidget {
   final Function() reduce;
 
   InheritedContext({
-    Key key,
-    @required this.inheritedTestModel,
-    @required this.increment,
-    @required this.reduce,
-    @required Widget child,
+    Key? key,
+    required this.inheritedTestModel,
+    required this.increment,
+    required this.reduce,
+    required Widget child,
   }) : super(key: key, child: child);
 
-  static InheritedContext of(BuildContext context) {
+  static InheritedContext? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<InheritedContext>();
   }
 
@@ -51,9 +51,9 @@ class TestWidgetA extends StatefulWidget {
 class TestAState extends State<TestWidgetA> {
   @override
   Widget build(BuildContext context) {
-    final inheritedContext = InheritedContext.of(context);
+    final inheritedContext = InheritedContext.of(context)!;
 
-    final inheritedTestModel = inheritedContext.inheritedTestModel;
+    final inheritedTestModel = inheritedContext.inheritedTestModel!;
 
     print('TestWidgetA 中count的值:  ${inheritedTestModel.count}');
     return new Padding(
@@ -133,9 +133,9 @@ class TestBState extends State<TestWidgetB> {
 class TestWidgetC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final inheritedContext = InheritedContext.of(context);
+    final inheritedContext = InheritedContext.of(context)!;
 
-    final inheritedTestModel = inheritedContext.inheritedTestModel;
+    final inheritedTestModel = inheritedContext.inheritedTestModel!;
 
     print('TestWidgetC 中count的值:  ${inheritedTestModel.count}');
 
@@ -201,7 +201,7 @@ class InheritedWidgetTestContainer extends StatefulWidget {
 
 class _InheritedWidgetTestContainerState
     extends State<InheritedWidgetTestContainer> {
-  InheritedTestModel inheritedTestModel;
+  InheritedTestModel? inheritedTestModel;
 
   _initData() {
     inheritedTestModel = new InheritedTestModel(0);
@@ -228,13 +228,13 @@ class _InheritedWidgetTestContainerState
 
   _incrementCount() {
     setState(() {
-      inheritedTestModel = new InheritedTestModel(inheritedTestModel.count + 1);
+      inheritedTestModel = new InheritedTestModel(inheritedTestModel!.count + 1);
     });
   }
 
   _reduceCount() {
     setState(() {
-      inheritedTestModel = new InheritedTestModel(inheritedTestModel.count - 1);
+      inheritedTestModel = new InheritedTestModel(inheritedTestModel!.count - 1);
     });
   }
 

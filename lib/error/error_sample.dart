@@ -16,5 +16,5 @@ void smaple1() {
 }
 
 class TestClass {
-  String aa;
+  String? aa;
 }

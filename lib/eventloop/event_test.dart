@@ -44,7 +44,7 @@ class EventLoopTestWidget extends StatelessWidget {
     Future(() => print('f2')).then((_) {
       print('f3');
       scheduleMicrotask(() => print('f4'));
-    }).then((_) => print('f5'));
+    }).then(((_) => print('f5')));
 
 // 声明了一个匿名 Future，并注册了两个 then。第一个 then 是一个 Future
     Future(() => print('f6'))
@@ -106,7 +106,7 @@ class EventLoopTestWidget extends StatelessWidget {
     }
 
     try {
-      String res = await c.future;
+      String res = await (c.future as FutureOr<String>);
       print(res); //得到complete传入的返回值 'complete in 800'
     } catch (e) {
       print(e); //捕获completeError返回的错误

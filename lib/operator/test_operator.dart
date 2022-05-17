@@ -20,8 +20,8 @@ class TestOperator {
 }
 
 class TestOperatorWidget extends StatelessWidget {
-  TestOperator _a;
-  TestOperator _b;
+  late TestOperator _a;
+  late TestOperator _b;
 
   @override
   Widget build(BuildContext context) {

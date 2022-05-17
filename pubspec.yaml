@@ -14,18 +14,18 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  english_words: ^3.1.0
-  performance_fps: ^0.0.5
-  flutter_ui_box: ^0.0.5
-  webview_flutter: 0.3.24
+  cupertino_icons: ^1.0.4
+  english_words: ^4.0.0
+  performance_fps: ^0.0.7
+  flutter_ui_box: ^0.0.9
+  webview_flutter: ^3.0.4
   vm_service: ^8.2.2
 #  kraken: '>= 0.0.1' # 阿里kraken
 

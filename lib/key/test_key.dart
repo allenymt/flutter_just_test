@@ -13,7 +13,7 @@ class TestKeyWidget extends StatefulWidget {
 }
 
 class _TestState extends State<TestKeyWidget> with WidgetsBindingObserver{
-  List<Widget> widgetsStateful;
+  late List<Widget> widgetsStateful;
 
 
   @override
@@ -38,7 +38,7 @@ class _TestState extends State<TestKeyWidget> with WidgetsBindingObserver{
 //        ),
 //      ),
 //    ];
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     widgetsStateful = [
       StatelessContainer(),
       StatelessContainer(),
@@ -49,7 +49,7 @@ class _TestState extends State<TestKeyWidget> with WidgetsBindingObserver{
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
   }
 
   @override
@@ -93,7 +93,7 @@ class _TestState extends State<TestKeyWidget> with WidgetsBindingObserver{
 }
 
 class StatefulContainer extends StatefulWidget {
-  StatefulContainer({Key key}) : super(key: key);
+  StatefulContainer({Key? key}) : super(key: key);
 
   @override
   _StatefulContainerState createState() {
@@ -102,7 +102,7 @@ class StatefulContainer extends StatefulWidget {
 }
 
 class _StatefulContainerState extends State<StatefulContainer> {
-  Color color;
+  Color? color;
 
   @override
   void initState() {

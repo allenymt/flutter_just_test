@@ -48,7 +48,7 @@ class TestWidgetsFlutterBinding extends TestBindingBase
         TestSemanticsBinding,
         TestRendererBinding,
         TestWidgetsBinding {
-  static TestWidgetsBinding ensureInitialized() {
+  static TestWidgetsBinding? ensureInitialized() {
     if (TestWidgetsBinding.instance == null) {
       print("WidgetsFlutterBinding constr");
       TestWidgetsFlutterBinding();
@@ -67,10 +67,10 @@ mixin TestWidgetsBinding
         TestGestureBinding,
         TestRendererBinding,
         TestSemanticsBinding {
-  static TestWidgetsBinding get instance => _instance;
+  static TestWidgetsBinding? get instance => _instance;
 
-  static set instance(TestWidgetsBinding s) => _instance = s;
-  static TestWidgetsBinding _instance;
+  static set instance(TestWidgetsBinding? s) => _instance = s;
+  static TestWidgetsBinding? _instance;
 
   @override
   void initInstances() {
@@ -82,8 +82,8 @@ mixin TestWidgetsBinding
 }
 
 mixin TestSemanticsBinding on TestBindingBase {
-  static TestSemanticsBinding get instance => _instance;
-  static TestSemanticsBinding _instance;
+  static TestSemanticsBinding? get instance => _instance;
+  static TestSemanticsBinding? _instance;
 
   @override
   void initInstances() {
@@ -101,8 +101,8 @@ mixin TestRendererBinding
         TestSchedulerBinding,
         TestGestureBinding,
         TestSemanticsBinding {
-  static TestRendererBinding get instance => _instance;
-  static TestRendererBinding _instance;
+  static TestRendererBinding? get instance => _instance;
+  static TestRendererBinding? _instance;
 
   @override
   void initInstances() {
@@ -121,13 +121,13 @@ mixin TestPaintingBinding on TestBindingBase, TestServicesBinding {
     /// step 11
     _instance = this;
   }
-  static TestPaintingBinding get instance => _instance;
-  static TestPaintingBinding _instance;
+  static TestPaintingBinding? get instance => _instance;
+  static TestPaintingBinding? _instance;
 }
 
 mixin TestSchedulerBinding on TestBindingBase, TestServicesBinding {
-  static TestSchedulerBinding get instance => _instance;
-  static TestSchedulerBinding _instance;
+  static TestSchedulerBinding? get instance => _instance;
+  static TestSchedulerBinding? _instance;
 
   @override
   void initInstances() {
@@ -139,8 +139,8 @@ mixin TestSchedulerBinding on TestBindingBase, TestServicesBinding {
 }
 
 mixin TestServicesBinding on TestBindingBase {
-  static TestServicesBinding get instance => _instance;
-  static TestServicesBinding _instance;
+  static TestServicesBinding? get instance => _instance;
+  static TestServicesBinding? _instance;
 
   @override
   void initInstances() {
@@ -152,8 +152,8 @@ mixin TestServicesBinding on TestBindingBase {
 }
 
 mixin TestGestureBinding on TestBindingBase {
-  static TestGestureBinding get instance => _instance;
-  static TestGestureBinding _instance;
+  static TestGestureBinding? get instance => _instance;
+  static TestGestureBinding? _instance;
 
   @override
   void initInstances() {

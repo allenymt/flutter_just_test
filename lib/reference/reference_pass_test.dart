@@ -36,10 +36,10 @@ class TestReference {
 }
 
 class TestClass {
-  int mInt;
-  String mStr;
-  double mDouble;
-  TestClassChild testClassChild;
+  late int mInt;
+  String? mStr;
+  late double mDouble;
+  late TestClassChild testClassChild;
   Map<String, dynamic> testMap1 = {};
 
   TestClass() {
@@ -53,9 +53,9 @@ class TestClass {
 }
 
 class TestClassChild {
-  int mIntChild;
-  String mStrChild;
-  double mDoubleChild;
+  late int mIntChild;
+  String? mStrChild;
+  double? mDoubleChild;
 
   TestClassChild() {
     mIntChild = 3;
