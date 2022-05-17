@@ -1,6 +1,13 @@
 package com.example.flutter_just_test;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+
+import com.yl.lib.sentry.hook.PrivacyResultCallBack;
+import com.yl.lib.sentry.hook.PrivacySentry;
+import com.yl.lib.sentry.hook.PrivacySentryBuilder;
+
 import io.flutter.embedding.android.FlutterActivity;
 
 public class MainActivity extends FlutterActivity {
@@ -13,8 +20,30 @@ public class MainActivity extends FlutterActivity {
 //    registerIntent();
 //
 //    registerPlatformView();
+        initPrivacy();
     }
 
+    void initPrivacy(){
+        PrivacySentryBuilder builder = new PrivacySentryBuilder()
+                // 自定义文件结果的输出名
+                .configResultFileName("buyer_privacy")
+                // 配置游客模式，true打开游客模式，false关闭游客模式
+                .configVisitorModel(false)
+                // 配置写入文件日志 , 线上包这个开关不要打开！！！！，true打开文件输入，false关闭文件输入
+                .enableFileResult(true)
+                // 持续写入文件30分钟
+                .configWatchTime(30 * 60 * 1000)
+                // 文件输出后的回调
+                .configResultCallBack(new PrivacyResultCallBack() {
+
+                    @Override
+                    public void onResultCallBack(@NonNull String s) {
+
+                    }
+                });
+        // 添加默认结果输出，包含log输出和文件输出
+        PrivacySentry.Privacy.INSTANCE.init(getApplication(), builder);
+    }
 //  void registerPlatformView(){
 //    Registrar registrar = registrarFor("com.hangchen/NativeViews");
 //    SampleViewFactory playerViewFactory = new SampleViewFactory(registrar.messenger());

@@ -30,13 +30,13 @@ class _AnimationPageViewWidgetState extends State<AnimationPageViewWidget> {
         controller: PageController(),
         itemBuilder: (context, index) {
           String imgUrl = pics.elementAt(index);
-          double w = MediaQuery.of(context)?.size?.width ?? 0;
+          double w = MediaQuery.of(context).size.width;
           double h = w * calculateImgScale(index);
           return GestureDetector(
             onTap: () {
               print("tap img index is $index");
             },
-            child: Image.network(imgUrl ?? "",
+            child: Image.network(imgUrl,
                 width: w,
                 height: h,
                 fit: BoxFit.cover,
@@ -61,7 +61,7 @@ class _AnimationPageViewWidgetState extends State<AnimationPageViewWidget> {
       children: <Widget>[
         child,
         Visibility(
-          visible: (pics?.length ?? 0) > 1,
+          visible: (pics.length) > 1,
           child: Positioned(
             bottom: 18,
             right: 15,
@@ -74,7 +74,7 @@ class _AnimationPageViewWidgetState extends State<AnimationPageViewWidget> {
                         fontWeight: FontWeight.w500,
                         color: Colors.black)),
                 TextSpan(
-                    text: "/${pics?.length ?? 0}",
+                    text: "/${pics.length}",
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,

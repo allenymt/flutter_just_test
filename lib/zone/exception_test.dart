@@ -91,7 +91,7 @@ class SlotExceptionManager {
       if (details.library == 'widgets library' &&
           details.context is ErrorDescription) {
         ErrorDescription description = details.context as ErrorDescription;
-        bool isDescNotEmpty = description.value?.isNotEmpty ?? false;
+        bool isDescNotEmpty = description.value.isNotEmpty;
         if (isDescNotEmpty == true && description.value[0] is String) {
           String descString = description.value[0] as String;
 
@@ -99,7 +99,7 @@ class SlotExceptionManager {
             /// `flutter/lib/src/widgets/binding.dart#1146`
             /// 该错误表示之后会回调[ErrorWidget.builder]，这里不统计
             return;
-          } else if (descString?.startsWith('building') ?? false) {
+          } else if (descString.startsWith('building')) {
             /// `flutter/lib/src/widgets/framework.dart#4491`
             /// `flutter/lib/src/widgets/layout_builder.dart#95`
             /// `flutter/lib/src/widgets/sliver.dart#1621`
@@ -117,7 +117,7 @@ class SlotExceptionManager {
     var defaultErrorBuilder = ErrorWidget.builder;
     ErrorWidget.builder = (FlutterErrorDetails details) {
       print(
-          "expectinTest ErrorWidget stacktrace is ${details?.stack?.toString()} fsdfff");
+          "expectinTest ErrorWidget stacktrace is ${details.stack.toString()} fsdfff");
 
       if (buildErrorWidget == null) {
         return defaultErrorBuilder(details);
@@ -145,7 +145,7 @@ class SlotExceptionManager {
     }
     bool isSpecialError = false;
     specialClassSet!.forEach((element) {
-      if (details?.context?.toString()?.contains(element) ?? false) {
+      if (details.context.toString().contains(element)) {
         isSpecialError = true;
       }
     });

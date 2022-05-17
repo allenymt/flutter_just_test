@@ -23,10 +23,15 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'privacy-sentry-plugin'
 
+// 黑名单配置，可以设置这部分包名不会被修改字节码
+// 项目里如果有引入高德地图，先加黑 blackList = ["com.loc","com.amap.api"], asm的版本有冲突
+privacy {
+    blackList = []
+}
 android {
-    compileSdkVersion 28
-
+    compileSdkVersion 31
     lintOptions {
         disable 'InvalidPackage'
     }
@@ -48,6 +53,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
 }
 
 flutter {
@@ -60,4 +66,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-common:2.2.0'
+    // aar依赖
+    def privacyVersion = "1.0.4"
+    implementation "com.github.allenymt.PrivacySentry:hook-sentry:$privacyVersion"
+    implementation "com.github.allenymt.PrivacySentry:privacy-annotation:$privacyVersion"
+    //如果不想使用库中本身的代理方法，可以不引入这个类，自己实现
+    implementation "com.github.allenymt.PrivacySentry:privacy-proxy:$privacyVersion"
 }

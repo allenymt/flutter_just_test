@@ -104,7 +104,7 @@ class VMServiceTest {
     vmInfo = buffer.toString();
     FlutterTestLog.i("updateIsolates-info-$vmInfo");
     _userIsolates = _vm.isolates!;
-    if (_userIsolates == null || _userIsolates!.isEmpty) {
+    if (_userIsolates.isEmpty) {
       return false;
     }
     return true;
@@ -159,14 +159,14 @@ class VMServiceTest {
   Future testScriptParse() async {
     assert(_userIsolates != null);
     IsolateRef? isolateRef = _userIsolates.first;
-    final String? isolateId = isolateRef?.id;
+    final String? isolateId = isolateRef.id;
     final Isolate isolate = await _vmService.getIsolate(isolateId!);
     final Library rootLibrary =
-        await _vmService.getObject(isolateId!, isolate.rootLib!.id!) as Library;
+        await _vmService.getObject(isolateId, isolate.rootLib!.id!) as Library;
     final ScriptRef scriptRef = rootLibrary.scripts!.first;
 
     final Script script =
-        await _vmService.getObject(isolateId!, scriptRef.id!) as Script;
+        await _vmService.getObject(isolateId, scriptRef.id!) as Script;
     print(script);
     print(script.uri);
     print(script.library);
@@ -176,9 +176,9 @@ class VMServiceTest {
 
   Future testSourceReport() async {
     assert(_userIsolates != null);
-    IsolateRef? isolateRef = _userIsolates?.first;
-    final isolateId = isolateRef?.id!;
-    final Isolate isolate = await _vmService.getIsolate(isolateId!);
+    IsolateRef? isolateRef = _userIsolates.first;
+    final isolateId = isolateRef.id!;
+    final Isolate isolate = await _vmService.getIsolate(isolateId);
     final Library rootLibrary =
         await _vmService.getObject(isolateId, isolate.rootLib!.id!) as Library;
     final ScriptRef scriptRef = rootLibrary.scripts!.first;

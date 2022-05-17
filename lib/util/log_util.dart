@@ -4,10 +4,10 @@
 class FlutterTestLog {
   static final tag = "flutter_test";
   static void i(String msg) {
-    print("$tag msg:${msg ?? ""}");
+    print("$tag msg:$msg");
   }
 
   static void e(String msg) {
-    print("error: $tag msg:${msg ?? ""}");
+    print("error: $tag msg:$msg");
   }
 }

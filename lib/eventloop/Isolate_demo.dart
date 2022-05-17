@@ -42,7 +42,7 @@ class IsolateTestWidget extends StatelessWidget {
     receivePort.listen((message) {
       print('IsolateTest once：$message');
       isolate1?.kill(priority: Isolate.immediate);
-      receivePort?.close();
+      receivePort.close();
       isolate1 = null;
     });
   }

@@ -62,7 +62,7 @@ class DebugLogTest extends StatelessWidget {
             onTap: () {
               //dump rendertree树，layout issue可以查看
               //信息很多，建议可以打到文件里查看，在logcat里看不了
-              SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                 debugDumpRenderTree();
               });
             },
