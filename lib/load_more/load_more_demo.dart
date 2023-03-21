@@ -135,7 +135,7 @@ class TabViewLagDemoState extends State<TabViewLoadMoreDemo>
             !_lastPage() &&
             !isLoadingMore) {
           isLoadingMore = true;
-          SchedulerBinding.instance.addPostFrameCallback((_) {
+          SchedulerBinding.instance?.addPostFrameCallback((_) {
             _addItems();
           });
         }

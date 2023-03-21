@@ -12,7 +12,7 @@ class FadeAppTest extends StatelessWidget {
     print(
         "test ddd is ${Uri.decodeQueryComponent(Uri.encodeComponent("%E6%88%91%E7%9A%84%20%E7%9A%84%E7%9A%84"))}");
     return MaterialApp(
-      title: 'Fade Demo',
+      title: 'Fade Demo12312321',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

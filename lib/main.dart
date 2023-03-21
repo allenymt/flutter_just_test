@@ -44,7 +44,8 @@ void main() {
   runZonedGuarded<Future<Null>>(() async {
     runApp(MyApp());
   }, (error, stackTrace) async {
-    print("expectinTest zone error ${stackTrace.toString()}");
+    print("expectinTest zone error123 ${stackTrace.toString()}");
+    print("123123");
 //Do sth for error
   });
 
@@ -55,7 +56,7 @@ void main() {
     // 只有colorfilter才能检测到 ,Opacity,clip.savelayer 都无法检测到。
 //    checkerboardRasterCacheImages: true,
     routes: <String, WidgetBuilder>{
-      "fade_app": (BuildContext context) => FadeAppTest(),
+      "fade_ap123": (BuildContext context) => FadeAppTest(),
       "paint_demo": (BuildContext context) => PaintApp(),
       "inherited_test": (BuildContext context) =>
           InheritedWidgetTestContainer(),

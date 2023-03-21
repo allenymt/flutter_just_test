@@ -115,7 +115,7 @@ class WebViewInTabViewState extends State<WebViewInTabView>
   Widget _buildWebView() {
     return WebView(
       initialUrl:
-          'https://juejin.cn/user/764915820281304',
+          'https://www.baidu.com/',
       javascriptMode: JavascriptMode.unrestricted,
       onWebViewCreated: (WebViewController webViewController) {},
       navigationDelegate: (NavigationRequest request) {

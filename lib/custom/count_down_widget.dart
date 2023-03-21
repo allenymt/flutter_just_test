@@ -62,7 +62,7 @@ class _CountDownWidgetState extends State<CountDownWidget>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
     _refreshOffset();
     if (offset.inSeconds > 0) {
       _timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -105,7 +105,7 @@ class _CountDownWidgetState extends State<CountDownWidget>
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     _timer?.cancel();
   }
 

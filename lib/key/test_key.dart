@@ -1,162 +1,94 @@
-import 'dart:math' as math;
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
 /// do what
 /// @author yulun
 /// @since 2020-06-17 16:28
-
-/// main widget
+/// https://juejin.cn/post/6845166891573444616#heading-4 讲的不错
 class TestKeyWidget extends StatefulWidget {
   @override
-  _TestState createState() => _TestState();
+  _KeyDemo1PageState createState() => _KeyDemo1PageState();
 }
 
-class _TestState extends State<TestKeyWidget> with WidgetsBindingObserver{
-  late List<Widget> widgetsStateful;
+class _KeyDemo1PageState extends State<TestKeyWidget> {
+  List<Widget> tiles = [
+    StatefulColorfulTile(key:ValueKey("1"),name: "1"),
+    StatefulColorfulTile(key:ValueKey("2"),name: "2"),
 
+    // StatefulColorfulTile(name: "1"),
+    // StatefulColorfulTile(name: "2"),
+  ];
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("yulun AppLifecycleState $state");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-//    widgetsStateful = [
-//      Padding(
-//        padding: EdgeInsets.all(1),
-//        child: StatefulContainer(
-//          key: UniqueKey(),
-//        ),
-//      ),
-//      Padding(
-//        padding: EdgeInsets.all(1),
-//        child: StatefulContainer(
-//          key: UniqueKey(),
-//        ),
-//      ),
-//    ];
-    WidgetsBinding.instance.addObserver(this);
-    widgetsStateful = [
-      StatelessContainer(),
-      StatelessContainer(),
-    ];
-  }
-
-
-  @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-  }
-
+  UniqueKey key = UniqueKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-//      Center(
-//        child:
-//        Column(
-//          children: <Widget>[
-//            Row(
-//              mainAxisAlignment: MainAxisAlignment.center,
-//              children: widgetsStateless,
-//            ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: widgetsStateful),
-//          ],
-//        ),
-
-//      ),
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        title: Text("Key demo"),
+      ),
+      body: Column(
+        children: tiles,
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: switchWidget,
-        child: Icon(Icons.undo),
+        child: Icon(Icons.delete),
+        onPressed: () {
+          setState(() {
+            tiles.insert(1, tiles.removeAt(0));
+          });
+        },
       ),
     );
   }
-
-  switchWidget() {
-//    switchWidgetStateless();
-//    switchWidgetStateful();
-  if (mounted)
-    setState(() {
-      widgetsStateful.insert(0, widgetsStateful.removeAt(1));
-    });
-  }
-
-  switchWidgetStateful() {
-    widgetsStateful.insert(0, widgetsStateful.removeAt(1));
-  }
 }
 
-class StatefulContainer extends StatefulWidget {
-  StatefulContainer({Key? key}) : super(key: key);
-
+class StatefulColorfulTile extends StatefulWidget {
+  // 如果把属性值放到widget里，那每次setState就会发生改变
+  // Color myColor = Color.fromARGB(
+  //     255, Random().nextInt(256), Random().nextInt(256), Random().nextInt(256));
   @override
-  _StatefulContainerState createState() {
-    return _StatefulContainerState();
-  }
+  _StatefulColorfulTileState createState() => _StatefulColorfulTileState();
+  String? name;
+
+  StatefulColorfulTile({Key? key, this.name}): super(key: key);
 }
 
-class _StatefulContainerState extends State<StatefulContainer> {
-  Color? color;
-
-  @override
-  void initState() {
-    super.initState();
-    color = RandomColor().randomColor();
-  }
+class _StatefulColorfulTileState extends State<StatefulColorfulTile> {
+  // 放到state里，不会发生改变的，因为每次setState只是改变state引用的widget，但是state没变过
+  // 当然这种情况如果加了key，就会触发element的mount和unmount，那就能发生改变了
+  Color myColor = Color.fromARGB(
+      255, Random().nextInt(256), Random().nextInt(256), Random().nextInt(256));
 
   @override
   Widget build(BuildContext context) {
-    Widget widget = Container(
-      width: 100,
-      height: 100,
-      color: color,
-    );
-    return widget;
+    // 为什么不加key的时候每次都触发。加了key反而不触发了？
+    // 没加key之前，每次setState都会触发build，因为没有key，所以每次都会重新创建一个新的widget，然后setState的时候，会把新的widget和旧的widget进行比较，发现不一样，所以会触发build
+    // 加了key之后，反而不会触发，因为element会优先从同等级的tree里去找相对应的widget，既然加了key，那么刚好找到对应的widget，所以不会触发build
+    print("${widget.name} build , myColor is ${myColor} , key is ${widget.key}");
+    return Container(
+        color: myColor, child: Padding(padding: EdgeInsets.all(70.0)));
+
+    // print("${widget.name} build , myColor is ${widget.myColor}");
+    // return Container(
+    //     color: widget.myColor, child: Padding(padding: EdgeInsets.all(70.0)));
   }
 
   @override
-  void deactivate() {
-    super.deactivate();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didUpdateWidget(StatefulContainer oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void dispose() {
+    print("${widget.name} dispose");
+    super.dispose();
   }
 }
 
-class StatelessContainer extends StatelessWidget {
-  final Color color = RandomColor().randomColor();
+class StatelessColorfulTile extends StatelessWidget {
+  Color myColor = Color.fromARGB(
+      255, Random().nextInt(256), Random().nextInt(256), Random().nextInt(256));
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
-      height: 100,
-      color: color,
-    );
-  }
-}
-
-class RandomColor {
-  Color randomColor() {
-    return Color.fromARGB(
-        random(150, 255), random(0, 255), random(0, 255), random(0, 255));
-  }
-
-  int random(int min, int max) {
-    final _random = math.Random();
-    return min + _random.nextInt(max - min + 1);
+        color: myColor, child: Padding(padding: EdgeInsets.all(70.0)));
   }
 }
